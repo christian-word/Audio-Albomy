@@ -1,0 +1,21 @@
+﻿[
+    {
+        "name": "EXB",
+        "icon": "AudioFolder/EXB/ico/icon.jpg",
+        "tracks": [
+            {
+                "name": "До тебе Господь у молитві йдемо.mp3",
+                "url": "AudioFolder/EXB/До тебе Господь у молитві йдемо.mp3",
+                "icon": "AudioFolder/EXB/До тебе Господь у молитві йдемо.jpg",
+                "duration": 225
+            },
+            {
+                "name": "track2.mp3",
+                "url": "AudioFolder/EXB/track2.mp3",
+                "icon": null,
+                "duration": 180
+            }
+        ],
+        "zip": "AudioFolder/EXB/EXB.zip"
+    }
+]

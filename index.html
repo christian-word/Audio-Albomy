@@ -1,0 +1,344 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Gospel Audio Player</title>
+    <link rel="manifest" href="/gospel-audio/manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        #albums {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .album {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .album:hover {
+            transform: scale(1.05);
+        }
+        .album img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .album p {
+            margin: 10px 0 0;
+            font-weight: bold;
+        }
+        #current-album {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #34495e;
+        }
+        #tracks {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .track {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+        .track.active {
+            background-color: #e8f4fd;
+            font-weight: bold;
+            color: #2980b9;
+        }
+        .track img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .track button {
+            background-color: transparent;
+            border: none;
+            color: #3498db;
+            cursor: pointer;
+            flex: 1;
+            text-align: left;
+            font-size: 1em;
+        }
+        .track button:hover {
+            color: #2980b9;
+        }
+        .track .duration {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+        .download-link {
+            margin-left: 10px;
+            color: #95a5a6;
+            text-decoration: none;
+        }
+        .download-link:hover {
+            color: #7f8c8d;
+        }
+        #player {
+            display: block;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 400px;
+        }
+        .download-album {
+            display: block;
+            text-align: center;
+            margin: 20px 0;
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .download-album:hover {
+            color: #c0392b;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            #albums {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 10px;
+            }
+            .album {
+                padding: 10px;
+            }
+            .album img {
+                width: 80px;
+                height: 80px;
+            }
+            .track {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .track img {
+                width: 30px;
+                height: 30px;
+            }
+            .track button {
+                font-size: 0.9em;
+            }
+            .track .duration {
+                font-size: 0.8em;
+            }
+            .download-link.desktop-only {
+                display: none;
+            }
+        }
+        @media (min-width: 601px) {
+            .download-link.mobile-only {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Gospel Audio Albums</h1>
+    <div id="albums"></div>
+    <div id="current-album"></div>
+    <div id="tracks"></div>
+    <audio id="player" controls onended="playNext()" preload="auto" playsinline></audio>
+
+    <script>
+        const repo = 'christian-word/gospel-audio';
+        const branch = 'main';
+        const rawBase = `https://raw.githubusercontent.com/${repo}/${branch}/`;
+
+        let currentPlaylist = [];
+        let currentIndex = 0;
+        let trackElements = [];
+
+        // Форматирование длительности в MM:SS
+        function formatDuration(seconds) {
+            if (!seconds || isNaN(seconds)) return '';
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        async function loadAlbums() {
+            const albumsDiv = document.getElementById('albums');
+            albumsDiv.innerHTML = '<p style="text-align: center;">Загрузка...</p>';
+            try {
+                const response = await fetch(`${rawBase}albums.json`);
+                if (!response.ok) throw new Error('Не удалось загрузить albums.json');
+                const albums = await response.json();
+
+                albumsDiv.innerHTML = '';
+                for (let album of albums) {
+                    const albumDiv = document.createElement('div');
+                    albumDiv.className = 'album';
+                    if (album.icon) {
+                        const img = document.createElement('img');
+                        img.src = rawBase + album.icon;
+                        albumDiv.appendChild(img);
+                    } else {
+                        albumDiv.innerHTML = '🎵<br>';
+                    }
+                    const nameP = document.createElement('p');
+                    nameP.innerText = album.name;
+                    albumDiv.appendChild(nameP);
+                    albumDiv.onclick = () => loadTracks(album);
+                    albumsDiv.appendChild(albumDiv);
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки альбомов:', error);
+                albumsDiv.innerHTML = '<p style="text-align: center; color: red;">Ошибка загрузки альбомов. Проверьте albums.json.</p>';
+            }
+        }
+
+        function loadTracks(album) {
+            const tracksDiv = document.getElementById('tracks');
+            tracksDiv.innerHTML = '';
+            document.getElementById('current-album').innerText = `Альбом: ${album.name}`;
+            currentPlaylist = [];
+            trackElements = [];
+
+            album.tracks.forEach(track => {
+                const iconUrl = track.icon ? rawBase + track.icon : (album.icon ? rawBase + album.icon : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%233498db"%3E%3Cpath d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-10h2v6h-2zm0-2h2v1h-2z"/%3E%3C/svg%3E');
+                currentPlaylist.push({
+                    name: track.name,
+                    url: rawBase + track.url,
+                    icon: iconUrl,
+                    duration: track.duration
+                });
+                const index = currentPlaylist.length - 1;
+
+                const trackDiv = document.createElement('div');
+                trackDiv.className = 'track';
+                trackDiv.dataset.index = index;
+
+                const iconImg = document.createElement('img');
+                iconImg.src = iconUrl;
+                trackDiv.appendChild(iconImg);
+
+                const playBtn = document.createElement('button');
+                playBtn.innerText = track.name;
+                trackDiv.appendChild(playBtn);
+
+                const durationSpan = document.createElement('span');
+                durationSpan.className = 'duration';
+                durationSpan.innerText = formatDuration(track.duration);
+                trackDiv.appendChild(durationSpan);
+
+                const dlLink = document.createElement('a');
+                dlLink.href = rawBase + track.url;
+                dlLink.download = track.name;
+                dlLink.className = 'download-link desktop-only';
+                dlLink.innerHTML = '<i class="fas fa-download"></i>';
+
+                const dlLinkMobile = document.createElement('a');
+                dlLinkMobile.href = rawBase + track.url;
+                dlLinkMobile.download = track.name;
+                dlLinkMobile.className = 'download-link mobile-only';
+                dlLinkMobile.innerHTML = '<i class="fas fa-download"></i>';
+
+                trackDiv.appendChild(dlLink);
+                trackDiv.appendChild(dlLinkMobile);
+                playBtn.onclick = () => playTrack(index);
+                tracksDiv.appendChild(trackDiv);
+                trackElements.push(trackDiv);
+            });
+
+            if (album.zip) {
+                const dlAlbum = document.createElement('a');
+                dlAlbum.href = rawBase + album.zip;
+                dlAlbum.download = `${album.name}.zip`;
+                dlAlbum.innerText = 'Скачать весь альбом';
+                dlAlbum.className = 'download-album';
+                tracksDiv.appendChild(dlAlbum);
+            }
+
+            tracksDiv.style.display = 'block';
+        }
+
+        function playTrack(index) {
+            if (index >= 0 && index < currentPlaylist.length) {
+                currentIndex = index;
+                const player = document.getElementById('player');
+                player.src = currentPlaylist[index].url;
+                player.play().catch(error => {
+                    console.error('Ошибка воспроизведения:', error);
+                });
+                trackElements.forEach(el => el.classList.remove('active'));
+                trackElements[index].classList.add('active');
+                if ('mediaSession' in navigator) {
+                    navigator.mediaSession.metadata = new MediaMetadata({
+                        title: currentPlaylist[index].name,
+                        album: document.getElementById('current-album').innerText.replace('Альбом: ', ''),
+                        artwork: [
+                            { src: currentPlaylist[index].icon || '/gospel-audio/icon.png', sizes: '192x192', type: 'image/png' }
+                        ]
+                    });
+                }
+            } else {
+                console.error('Недопустимый индекс трека:', index);
+            }
+        }
+
+        function playNext() {
+            if (currentIndex < currentPlaylist.length - 1) {
+                playTrack(currentIndex + 1);
+            } else {
+                const player = document.getElementById('player');
+                player.pause();
+            }
+        }
+
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.setActionHandler('play', () => {
+                document.getElementById('player').play();
+            });
+            navigator.mediaSession.setActionHandler('pause', () => {
+                document.getElementById('player').pause();
+            });
+            navigator.mediaSession.setActionHandler('nexttrack', () => {
+                playNext();
+            });
+        }
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/gospel-audio/sw.js')
+                .then(() => console.log('Service Worker зарегистрирован'))
+                .catch(error => console.error('Ошибка регистрации Service Worker:', error));
+        }
+
+        loadAlbums();
+    </script>
+</body>
+</html>
