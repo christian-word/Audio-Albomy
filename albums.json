@@ -1,21 +1,15 @@
-﻿[
+[
     {
         "name": "Avalon-Zero",
-        "icon": "Avalon-Zero/icon.jpg",
+        "icon": "Music/Avalon-Zero/ico/icon.jpg",
         "tracks": [
             {
-                "name": "Avalon Zero, Jiri Nemec, Tomas Oliva - Pandora",
-                "url": "https://raw.githubusercontent.com/christian-word/Audio-Albomy/main/Music/Avalon-Zero/01%20-%20Avalon%20Zero,%20Jiri%20Nemec,%20Tomas%20Oliva%20-%20Pandora%20[audiovk.com].mp3",
+                "name": "01 - Avalon Zero, Jiri Nemec, Tomas Oliva - Pandora [audiovk.com].mp3",
+                "url": "Music/Avalon-Zero/01 - Avalon Zero, Jiri Nemec, Tomas Oliva - Pandora [audiovk.com].mp3",
                 "icon": null,
                 "duration": 225
-            },
-            {
-                "name": "track2.mp3",
-                "url": "",
-                "icon": null,
-                "duration": 180
             }
         ],
-        "zip": ""
+        "zip": null
     }
 ]
