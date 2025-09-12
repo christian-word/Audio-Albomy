@@ -2,6 +2,7 @@
     {
         "name": "Pandora - Avalon Zero & Tomáš Oliva (2021, Nefarious Industries)",
         "icon": "Music/Avalon-Zero/icon.jpg",
+        "category": "epic",
         "tracks": [
             {
                 "name": "01 - Avalon Zero, Jiri Nemec, Tomas Oliva - Pandora",
@@ -36,9 +37,10 @@
         ],
         "zip": null
     },
-{
+    {
         "name": "Новий_альбом",
         "icon": "Music/Новый альбом/ico/icon.jpg",
+        "category": "instrumental",
         "tracks": [
             {
                 "name": "Трек1.mp3",
