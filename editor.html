@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор Плейлиста</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #tree { margin-top: 20px; }
+        button { margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Редактор Плейлиста</h1>
+    <button id="loadGithub">Загрузить с GitHub</button>
+    <label for="loadLocal">Загрузить локально: </label><input type="file" id="loadLocal" accept=".json">
+    <button id="scanUpdate">Сканировать и Обновить</button>
+    <button id="save">Сохранить</button>
+    <div id="tree"></div>
+
+    <script>
+        let data = [];
+
+        function displayData() {
+            let html = '';
+            data.forEach(album => {
+                html += `<details><summary>${album.name} (Категория: ${album.category}, Иконка: ${album.icon || 'Нет'})</summary><ul>`;
+                album.tracks.forEach(track => {
+                    html += `<li>${track.name} - ${track.url} - Иконка: ${track.icon || 'Нет'} - Длительность: ${track.duration} сек</li>`;
+                });
+                html += '</ul></details>';
+            });
+            document.getElementById('tree').innerHTML = html;
+        }
+
+        document.getElementById('loadGithub').addEventListener('click', async () => {
+            try {
+                const url = 'https://raw.githubusercontent.com/christian-word/Audio-Albomy/main/albums.json';
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Не удалось загрузить');
+                data = await response.json();
+                displayData();
+                alert('Плейлист загружен с GitHub.');
+            } catch (e) {
+                alert(`Ошибка: ${e.message}`);
+            }
+        });
+
+        document.getElementById('loadLocal').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        data = JSON.parse(e.target.result);
+                        displayData();
+                        alert('Плейлист загружен локально.');
+                    } catch (err) {
+                        alert(`Ошибка: ${err.message}`);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        document.getElementById('save').addEventListener('click', () => {
+            const blob = new Blob([JSON.stringify(data, null, 4)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'albums.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('scanUpdate').addEventListener('click', async () => {
+            try {
+                const apiUrl = 'https://api.github.com/repos/christian-word/Audio-Albomy/git/trees/main?recursive=1';
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw new Error('Не удалось получить дерево репозитория');
+                const treeData = await response.json();
+                const tree = treeData.tree;
+
+                // Найти все альбомные директории под Music/
+                const albumDirs = new Set();
+                tree.forEach(item => {
+                    if (item.path.startsWith('Music/') && item.type === 'blob') {
+                        const parts = item.path.slice(6).split('/');
+                        if (parts.length > 1) albumDirs.add(parts[0]);
+                    }
+                });
+
+                // Map from album_dir to album index
+                const dirToAlbum = {};
+                data.forEach((album, idx) => {
+                    let albumDir = '';
+                    if (album.tracks.length > 0) {
+                        albumDir = album.tracks[0].url.split('/')[1];
+                    } else if (album.icon) {
+                        albumDir = album.icon.split('/')[1];
+                    }
+                    if (albumDir) dirToAlbum[albumDir] = idx;
+                });
+
+                for (let albumDir of albumDirs) {
+                    const fullDir = `Music/${albumDir}`;
+                    const blobs = tree.filter(item => item.path.startsWith(fullDir + '/') && item.type === 'blob').map(item => item.path);
+
+                    const mp3Paths = blobs.filter(p => p.endsWith('.mp3'));
+                    const jpgPaths = blobs.filter(p => p.endsWith('.jpg'));
+
+                    let albumIdx;
+                    if (!(albumDir in dirToAlbum)) {
+                        // Новый альбом, prompt для имени и категории
+                        const defaultName = albumDir.replace(/_/g, ' ').replace(/-/g, ' ');
+                        const albumName = prompt(`Введите имя альбома для ${albumDir}:`, defaultName);
+                        if (!albumName) continue;
+                        const category = prompt(`Введите категорию для ${albumName}:`, 'unknown');
+                        const newAlbum = {
+                            name: albumName,
+                            icon: null,
+                            category: category,
+                            tracks: [],
+                            zip: null
+                        };
+                        data.push(newAlbum);
+                        albumIdx = data.length - 1;
+                        dirToAlbum[albumDir] = albumIdx;
+                    } else {
+                        albumIdx = dirToAlbum[albumDir];
+                    }
+
+                    const album = data[albumIdx];
+
+                    // Обновить иконку альбома если не установлена
+                    if (!album.icon) {
+                        for (let jpg of jpgPaths) {
+                            const relPath = jpg.slice(fullDir.length + 1);
+                            if (relPath === 'icon.jpg' || (relPath.startsWith('ico/') && relPath.endsWith('icon.jpg'))) {
+                                album.icon = jpg;
+                                break;
+                            }
+                        }
+                    }
+
+                    // Existing tracks
+                    const existingUrls = new Set(album.tracks.map(track => track.url));
+
+                    // Добавить новые треки
+                    for (let mp3 of mp3Paths) {
+                        if (existingUrls.has(mp3)) continue;
+
+                        const trackName = mp3.split('/').pop().slice(0, -4);
+                        let trackIcon = null;
+                        for (let jpg of jpgPaths) {
+                            const jpgBase = jpg.split('/').pop().slice(0, -4);
+                            if (jpgBase === trackName) {
+                                trackIcon = jpg;
+                                break;
+                            }
+                        }
+
+                        // Получить длительность
+                        let duration = 0;
+                        try {
+                            const rawUrl = `https://raw.githubusercontent.com/christian-word/Audio-Albomy/main/${encodeURIComponent(mp3)}`;
+                            const resp = await fetch(rawUrl);
+                            if (!resp.ok) throw new Error('Не удалось скачать MP3');
+                            const blob = await resp.blob();
+                            const objectUrl = URL.createObjectURL(blob);
+                            const audio = new Audio(objectUrl);
+                            duration = await new Promise((resolve, reject) => {
+                                audio.onloadedmetadata = () => {
+                                    resolve(Math.round(audio.duration || 0));
+                                    URL.revokeObjectURL(objectUrl);
+                                };
+                                audio.onerror = (e) => {
+                                    reject(e);
+                                    URL.revokeObjectURL(objectUrl);
+                                };
+                            });
+                        } catch (e) {
+                            console.warn(`Не удалось получить длительность для ${trackName}: ${e.message}`);
+                            duration = 0;
+                        }
+
+                        const newTrack = {
+                            name: trackName,
+                            url: mp3,
+                            icon: trackIcon,
+                            duration: duration
+                        };
+                        album.tracks.push(newTrack);
+                    }
+                }
+
+                displayData();
+                alert('Плейлист обновлен на основе сканирования репозитория.');
+            } catch (e) {
+                alert(`Ошибка: ${e.message}`);
+            }
+        });
+    </script>
+</body>
+</html>
