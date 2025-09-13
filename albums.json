@@ -40,7 +40,7 @@
     {
         "name": "Новий_альбом",
         "icon": "Music/Новый альбом/ico/icon.jpg",
-        "category": "instrumental",
+        "category": "Electronic",
         "tracks": [
             {
                 "name": "Трек1.mp3",
