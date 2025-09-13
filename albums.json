@@ -33,6 +33,48 @@
                 "url": "Music/Avalon-Zero/05 - Avalon Zero, Sham Stalin - Odyssey [audiovk.com].mp3",
                 "icon": null,
                 "duration": 225
+            },
+            {
+                "name": "06 - Avalon Zero, Dominik Ivan - Hymn of the Universe [audiovk.com]",
+                "url": "Music/Avalon-Zero/06 - Avalon Zero, Dominik Ivan - Hymn of the Universe [audiovk.com].mp3",
+                "icon": null,
+                "duration": 128
+            },
+            {
+                "name": "07 - Avalon Zero, Jordi Rica - Vengeance [audiovk.com]",
+                "url": "Music/Avalon-Zero/07 - Avalon Zero, Jordi Rica - Vengeance [audiovk.com].mp3",
+                "icon": null,
+                "duration": 144
+            },
+            {
+                "name": "08 - Avalon Zero, Stan Koch, Maarten Buning - Vanguard [audiovk.com]",
+                "url": "Music/Avalon-Zero/08 - Avalon Zero, Stan Koch, Maarten Buning - Vanguard [audiovk.com].mp3",
+                "icon": null,
+                "duration": 167
+            },
+            {
+                "name": "09 - Avalon Zero, Amadeo Lopez - Beyond The Stars [audiovk.com]",
+                "url": "Music/Avalon-Zero/09 - Avalon Zero, Amadeo Lopez - Beyond The Stars [audiovk.com].mp3",
+                "icon": null,
+                "duration": 207
+            },
+            {
+                "name": "10 - Avalon Zero, Jiri Nemec, Tomas Oliva - Aurora [audiovk.com]",
+                "url": "Music/Avalon-Zero/10 - Avalon Zero, Jiri Nemec, Tomas Oliva - Aurora [audiovk.com].mp3",
+                "icon": null,
+                "duration": 149
+            },
+            {
+                "name": "11 - Avalon Zero, David Chappell - Come Hell or High Water [audiovk.com]",
+                "url": "Music/Avalon-Zero/11 - Avalon Zero, David Chappell - Come Hell or High Water [audiovk.com].mp3",
+                "icon": null,
+                "duration": 184
+            },
+            {
+                "name": "11 - Avalon Zero, David Chappell - Come Hell or High Water [audiovk.com]",
+                "url": "Music/Avalon-Zero/11 - Avalon Zero, David Chappell - Come Hell or High Water [audiovk.com].mp3",
+                "icon": null,
+                "duration": 184
             }
         ],
         "zip": null
@@ -45,8 +87,8 @@
             {
                 "name": "Трек1.mp3",
                 "url": "Music/Новый альбом/Трек1.mp3",
-                "icon": "Music/Новый альбом/Трек1.jpg", 
-                "duration": 301  
+                "icon": "Music/Новый альбом/Трек1.jpg",
+                "duration": 301
             }
         ],
         "zip": null
