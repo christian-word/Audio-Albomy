@@ -1,4 +1,4 @@
-[
+﻿[
     {
         "name": "Pandora - Avalon Zero & Tomáš Oliva (2021, Nefarious Industries)",
         "icon": "Music/Avalon-Zero/icon.jpg",
@@ -69,6 +69,48 @@
                 "url": "Music/Avalon-Zero/11 - Avalon Zero, David Chappell - Come Hell or High Water [audiovk.com].mp3",
                 "icon": null,
                 "duration": 184
+            },
+            {
+                "name": "11 - Avalon Zero, David Chappell - Come Hell or High Water",
+                "url": "Music/Avalon-Zero/11 - Avalon Zero, David Chappell - Come Hell or High Water [audiovk.com].mp3",
+                "icon": null,
+                "duration": 184
+            },
+            {
+                "name": "12 - Avalon Zero, Carbon Exile - Tales Of Infinity",
+                "url": "Music/Avalon-Zero/12 - Avalon Zero, Carbon Exile - Tales Of Infinity [audiovk.com].mp3",
+                "icon": null,
+                "duration": 150
+            },
+            {
+                "name": "13 - Avalon Zero, Sham Stalin - Dark Flames",
+                "url": "Music/Avalon-Zero/13 - Avalon Zero, Sham Stalin - Dark Flames [audiovk.com].mp3",
+                "icon": null,
+                "duration": 152
+            },
+            {
+                "name": "14 - Avalon Zero, David Chappell - Where Theres Smoke",
+                "url": "Music/Avalon-Zero/14 - Avalon Zero, David Chappell - Where Theres Smoke.mp3",
+                "icon": null,
+                "duration": 159
+            },
+            {
+                "name": "15 - Avalon Zero, Jordi Rica - Luminescence",
+                "url": "Music/Avalon-Zero/15 - Avalon Zero, Jordi Rica - Luminescence [audiovk.com].mp3",
+                "icon": null,
+                "duration": 164
+            },
+            {
+                "name": "16 - Avalon Zero, IMAscore - When I Fall From The Sky",
+                "url": "Music/Avalon-Zero/16 - Avalon Zero, IMAscore - When I Fall From The Sky [audiovk.com].mp3",
+                "icon": null,
+                "duration": 161
+            },
+            {
+                "name": "17 - Avalon Zero, Valentin Partyka - Earthquake",
+                "url": "Music/Avalon-Zero/17 - Avalon Zero, Valentin Partyka - Earthquake [audiovk.com].mp3",
+                "icon": null,
+                "duration": 170
             }
         ],
         "zip": null
