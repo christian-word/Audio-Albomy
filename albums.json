@@ -118,17 +118,17 @@
     {
         "name": "Avalon Zero & David Chappell",
         "icon": null,
-        "category": "music",
+        "category": "epic",
         "tracks": [
             {
                 "name": "Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - A World Apart",
-                "url": "Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - A World Apart.mp3",
+                "url": "Music/Avalon Zero & David Chappell - A World Apart.mp3",
                 "icon": null,
                 "duration": 213
             },
             {
                 "file": "Avalon Zero & David Chappell - Begin Again",
-                "url": "Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - Begin Again.mp3",
+                "url": "Music/Avalon Zero & David Chappell - Begin Again.mp3",
                 "icon": null,
                 "duration": 170
             },
