@@ -121,8 +121,7 @@
     "category": "music",
     "tracks": [
       {
-        "file": "Avalon Zero & David Chappell - A World Apart.mp3",
-        "path": "Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - A World Apart.mp3",
+        "name": "Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - A World Apart.mp3",
         "url": "https://raw.githubusercontent.com/christian-word/Audio-Albomy/main/Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - A World Apart.mp3",
         "title": "Avalon Zero & David Chappell - A World Apart",
         "duration": 213
