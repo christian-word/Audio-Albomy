@@ -117,20 +117,19 @@
     },
     {
         "name": "Avalon Zero & David Chappell",
-        "folder": "Avalon Zero & David Chappell",
+        "icon": null,
         "category": "music",
         "tracks": [
             {
-                "name": "Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - A World Apart.mp3",
-                "url": "https://raw.githubusercontent.com/christian-word/Audio-Albomy/main/Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - A World Apart.mp3",
-                "title": "Avalon Zero & David Chappell - A World Apart",
+                "name": "Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - A World Apart",
+                "url": "Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - A World Apart.mp3",
+                "icon": null,
                 "duration": 213
             },
             {
-                "file": "Avalon Zero & David Chappell - Begin Again.mp3",
-                "path": "Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - Begin Again.mp3",
-                "url": "https://raw.githubusercontent.com/christian-word/Audio-Albomy/main/Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - Begin Again.mp3",
-                "title": "Avalon Zero & David Chappell - Begin Again",
+                "file": "Avalon Zero & David Chappell - Begin Again",
+                "url": "Music/Avalon Zero & David Chappell/Avalon Zero & David Chappell - Begin Again.mp3",
+                "icon": null,
                 "duration": 170
             },
             {
