@@ -114,19 +114,5 @@
             }
         ],
         "zip": null
-    },
-    {
-        "name": "Новий_альбом",
-        "icon": "Music/Новый альбом/ico/icon.jpg",
-        "category": "Electronic",
-        "tracks": [
-            {
-                "name": "Трек1.mp3",
-                "url": "Music/Новый альбом/Трек1.mp3",
-                "icon": "Music/Новый альбом/Трек1.jpg",
-                "duration": 301
-            }
-        ],
-        "zip": null
     }
 ]
