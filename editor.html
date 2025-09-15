@@ -1,205 +1,117 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редактор Плейлиста</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        #tree { margin-top: 20px; }
-        button { margin-right: 10px; }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Music Albums Editor — правильный формат</title>
+<style>
+  body{margin:0;background:#0f1724;color:#e6eef6;font-family:system-ui,Arial}
+  .wrap{max-width:960px;margin:20px auto;padding:20px;background:#111827;border-radius:10px}
+  h1{margin:0 0 12px;font-size:20px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  label{font-size:13px;color:#9aa4b2}
+  input[type=text]{padding:6px 8px;border-radius:6px;border:1px solid #374151;background:#1f2937;color:inherit}
+  button{background:#60a5fa;border:none;padding:8px 12px;border-radius:8px;color:#042033;font-weight:600;cursor:pointer}
+  button.ghost{background:transparent;border:1px solid #374151;color:#9aa4b2}
+  .panel{margin-top:14px;padding:10px;background:#1f2937;border-radius:8px}
+  pre{background:#111827;padding:8px;border-radius:6px;overflow:auto;color:#cfe9ff;max-height:300px}
+  .list{max-height:220px;overflow:auto;font-size:13px;white-space:pre-wrap}
+  .ok{color:#86efac}.warn{color:#facc15}.error{color:#fb7185}
+  .progress{height:8px;background:#374151;border-radius:6px;overflow:hidden;margin-top:6px}
+  .bar{height:100%;background:#60a5fa;width:0%}
+  input[type=file]{display:none}
+</style>
 </head>
 <body>
-    <h1>Редактор Плейлиста</h1>
-    <button id="loadGithub">Загрузить с GitHub</button>
-    <label for="loadLocal">Загрузить локально: </label><input type="file" id="loadLocal" accept=".json">
-    <button id="scanUpdate">Сканировать и Обновить</button>
-    <button id="save">Сохранить</button>
-    <div id="tree"></div>
+<div class="wrap">
+  <h1>Редактор (2) albums.json (Суми, © 2025)</h1>
 
-    <script>
-        let data = [];
+  <div class="row">
+    <div><label>Репозиторий</label><br><input id="repoInput" type="text" placeholder="owner/repo или URL"></div>
+    <div><label>Ветка</label><br><input id="branchInput" type="text" value="main"></div>
+    <div><label>Token</label><br><input id="tokenInput" type="text"></div>
+    <div><label>Music путь</label><br><input id="musicPath" type="text" value="Music"></div>
+  </div>
 
-        function displayData() {
-            let html = '';
-            data.forEach(album => {
-                html += `<details><summary>${album.name} (Категория: ${album.category}, Иконка: ${album.icon || 'Нет'})</summary><ul>`;
-                album.tracks.forEach(track => {
-                    html += `<li>${track.name} - ${track.url} - Иконка: ${track.icon || 'Нет'} - Длительность: ${track.duration} сек</li>`;
-                });
-                html += '</ul></details>';
-            });
-            document.getElementById('tree').innerHTML = html;
-        }
+  <div class="row" style="margin-top:10px">
+    <button id="loadAlbumsGit">Загрузить albums.json (GitHub)</button>
+    <button id="loadAlbumsLocal">Загрузить albums.json (файл)</button>
+    <button id="scanBtn">Сканировать /Music</button>
+    <button id="applyBtn" class="ghost">Применить изменения</button>
+    <button id="saveBtn">Сохранить albums.json</button>
+  </div>
 
-        document.getElementById('loadGithub').addEventListener('click', async () => {
-            try {
-                const url = 'https://raw.githubusercontent.com/christian-word/Audio-Albomy/main/albums.json';
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Не удалось загрузить');
-                data = await response.json();
-                displayData();
-                alert('Плейлист загружен с GitHub.');
-            } catch (e) {
-                alert(`Ошибка: ${e.message}`);
-            }
-        });
+  <input id="filePicker" type="file" accept=".json">
 
-        document.getElementById('loadLocal').addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    try {
-                        data = JSON.parse(e.target.result);
-                        displayData();
-                        alert('Плейлист загружен локально.');
-                    } catch (err) {
-                        alert(`Ошибка: ${err.message}`);
-                    }
-                };
-                reader.readAsText(file);
-            }
-        });
+  <div class="panel">
+    <div><b>Текущий albums.json</b></div>
+    <pre id="albumsRaw">— не загружено —</pre>
+  </div>
 
-        document.getElementById('save').addEventListener('click', () => {
-            const blob = new Blob([JSON.stringify(data, null, 4)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'albums.json';
-            a.click();
-            URL.revokeObjectURL(url);
-        });
+  <div class="panel">
+    <div><b>Результат</b></div>
+    <div id="scanInfo" class="list">— нет данных —</div>
+  </div>
 
-        document.getElementById('scanUpdate').addEventListener('click', async () => {
-            try {
-                const apiUrl = 'https://api.github.com/repos/christian-word/Audio-Albomy/git/trees/main?recursive=1';
-                const response = await fetch(apiUrl);
-                if (!response.ok) throw new Error('Не удалось получить дерево репозитория');
-                const treeData = await response.json();
-                const tree = treeData.tree;
+  <div class="panel">
+    <div><b>Лог</b></div>
+    <div id="log" class="list">— пусто —</div>
+    <div class="progress"><div id="progressBar" class="bar"></div></div>
+  </div>
+</div>
 
-                // Найти все альбомные директории под Music/
-                const albumDirs = new Set();
-                tree.forEach(item => {
-                    if (item.path.startsWith('Music/') && item.type === 'blob') {
-                        const parts = item.path.slice(6).split('/');
-                        if (parts.length > 1) albumDirs.add(parts[0]);
-                    }
-                });
+<script>
+let albums=null, scanned=null, baseRepo=null;
 
-                // Map from album_dir to album index
-                const dirToAlbum = {};
-                data.forEach((album, idx) => {
-                    let albumDir = '';
-                    if (album.tracks.length > 0) {
-                        albumDir = album.tracks[0].url.split('/')[1];
-                    } else if (album.icon) {
-                        albumDir = album.icon.split('/')[1];
-                    }
-                    if (albumDir) dirToAlbum[albumDir] = idx;
-                });
+function log(m,c=''){const d=document.createElement('div');d.innerText=m;if(c)d.className=c;document.getElementById('log').prepend(d);}
+function resetProgress(){document.getElementById('progressBar').style.width='0%';}
+function setProgress(p){document.getElementById('progressBar').style.width=Math.round(p*100)+'%';}
+function parseRepoInput(s){s=(s||'').trim();if(!s)return null;if(s.startsWith('http')){const u=new URL(s);const p=u.pathname.split('/').filter(Boolean);return{owner:p[0],repo:p[1]};}const p=s.split('/');if(p.length>=2)return{owner:p[0],repo:p[1]};return null;}
+function pretty(o){return JSON.stringify(o,null,4);}
+function basename(p){return p.split('/').pop();}
+function stripExt(n){return n.replace(/\.[^/.]+$/,'');}
+function roundDur(sec){return Math.round(sec||0);}
+async function fetchDur(url){try{const r=await fetch(url);if(!r.ok)throw new Error(r.status);const ab=await r.arrayBuffer();const ctx=new (window.AudioContext||window.webkitAudioContext)();return new Promise((res,rej)=>{ctx.decodeAudioData(ab.slice(0),b=>{ctx.close();res(roundDur(b.duration));},e=>{ctx.close();rej(e);});});}catch(e){return null;}}
+async function getTree(o,r,b,t){const h=t?{'Authorization':'token '+t}:{};
+let ref=`https://api.github.com/repos/${o}/${r}/git/refs/heads/${b}`;let x=await fetch(ref,{headers:h});let d=await x.json();let sha=d.object.sha;
+let tree=`https://api.github.com/repos/${o}/${r}/git/trees/${sha}?recursive=1`;let tr=await fetch(tree,{headers:h});return await tr.json();}
 
-                for (let albumDir of albumDirs) {
-                    const fullDir = `Music/${albumDir}`;
-                    const blobs = tree.filter(item => item.path.startsWith(fullDir + '/') && item.type === 'blob').map(item => item.path);
+loadAlbumsGit.onclick=async()=>{
+  const repo=parseRepoInput(repoInput.value);if(!repo){alert('repo');return;}
+  try{const url=`https://raw.githubusercontent.com/${repo.owner}/${repo.repo}/${branchInput.value}/albums.json`;
+  const r=await fetch(url,tokenInput.value?{headers:{Authorization:'token '+tokenInput.value}}:{});albums=await r.json();albumsRaw.textContent=pretty(albums);log('albums.json загружен');}
+  catch(e){log('Ошибка '+e,'error');}
+};
+loadAlbumsLocal.onclick=()=>filePicker.click();
+filePicker.onchange=async e=>{const f=e.target.files[0];if(!f)return;albums=JSON.parse(await f.text());albumsRaw.textContent=pretty(albums);log('Загружен '+f.name);};
 
-                    const mp3Paths = blobs.filter(p => p.endsWith('.mp3'));
-                    const jpgPaths = blobs.filter(p => p.endsWith('.jpg'));
+scanBtn.onclick=async()=>{
+  const repo=parseRepoInput(repoInput.value);if(!repo){alert('repo');return;}
+  baseRepo={...repo,branch:branchInput.value,token:tokenInput.value,musicPath:musicPath.value};
+  try{const t=await getTree(repo.owner,repo.repo,baseRepo.branch,baseRepo.token);
+    const files=t.tree.filter(i=>i.type==='blob').map(i=>i.path);const m=baseRepo.musicPath.replace(/^\/|\/$/g,'')+'/';
+    const mf=files.filter(p=>p.startsWith(m));const albumsBy={};
+    for(const p of mf){const rel=p.substring(m.length);const parts=rel.split('/');const folder=parts.length>1?parts[0]:'';if(!albumsBy[folder])albumsBy[folder]={folder,files:[]};albumsBy[folder].files.push({path:p,name:parts.slice(1).join('/')||parts[0]});}
+    scanned=albumsBy;scanInfo.textContent=Object.keys(albumsBy).map(f=>`${f} (${albumsBy[f].files.length})`).join('\n');log('Сканирование ок');}
+  catch(e){log('Ошибка '+e,'error');}
+};
 
-                    let albumIdx;
-                    if (!(albumDir in dirToAlbum)) {
-                        // Новый альбом, prompt для имени и категории
-                        const defaultName = albumDir.replace(/_/g, ' ').replace(/-/g, ' ');
-                        const albumName = prompt(`Введите имя альбома для ${albumDir}:`, defaultName);
-                        if (!albumName) continue;
-                        const category = prompt(`Введите категорию для ${albumName}:`, 'unknown');
-                        const newAlbum = {
-                            name: albumName,
-                            icon: null,
-                            category: category,
-                            tracks: [],
-                            zip: null
-                        };
-                        data.push(newAlbum);
-                        albumIdx = data.length - 1;
-                        dirToAlbum[albumDir] = albumIdx;
-                    } else {
-                        albumIdx = dirToAlbum[albumDir];
-                    }
+applyBtn.onclick=async()=>{
+  if(!scanned){alert('Нет скана');return;}
+  if(!albums)albums=[];let arr=Array.isArray(albums)?albums:albums.albums||[];
+  let addedAlb=0,addedTr=0;let tasks=[];
+  for(const folder of Object.keys(scanned)){const node=scanned[folder];
+    let alb=arr.find(a=>a.name===folder||a.folder===folder);
+    if(!alb){alb={name:folder||'New Album',icon:`${musicPath.value}/${folder}/icon.jpg`,category:'music',tracks:[],zip:null};arr.push(alb);addedAlb++;}
+    if(!alb.tracks)alb.tracks=[];
+    const existing=new Set(alb.tracks.map(t=>t.url));
+    for(const f of node.files){if(/\.(mp3|m4a|flac|wav|ogg|aac|opus)$/i.test(f.name)){if(!existing.has(f.path)){const tr={name:stripExt(basename(f.name)),url:f.path,icon:null,duration:null};alb.tracks.push(tr);tasks.push(tr);addedTr++;}}}
+  }
+  let i=0;for(const t of tasks){const full=`https://raw.githubusercontent.com/${baseRepo.owner}/${baseRepo.repo}/${baseRepo.branch}/${t.url}`;try{t.duration=await fetchDur(full);log(`Dur ${t.name}: ${t.duration}s`);}catch(e){log('Нет dur '+t.name,'warn');}setProgress(++i/tasks.length);}
+  albums=arr;albumsRaw.textContent=pretty(albums);scanInfo.textContent=`Добавлено альбомов: ${addedAlb}, треков: ${addedTr}`;log('Применено','ok');
+};
 
-                    const album = data[albumIdx];
-
-                    // Обновить иконку альбома если не установлена
-                    if (!album.icon) {
-                        for (let jpg of jpgPaths) {
-                            const relPath = jpg.slice(fullDir.length + 1);
-                            if (relPath === 'icon.jpg' || (relPath.startsWith('ico/') && relPath.endsWith('icon.jpg'))) {
-                                album.icon = jpg;
-                                break;
-                            }
-                        }
-                    }
-
-                    // Existing tracks
-                    const existingUrls = new Set(album.tracks.map(track => track.url));
-
-                    // Добавить новые треки
-                    for (let mp3 of mp3Paths) {
-                        if (existingUrls.has(mp3)) continue;
-
-                        const trackName = mp3.split('/').pop().slice(0, -4);
-                        let trackIcon = null;
-                        for (let jpg of jpgPaths) {
-                            const jpgBase = jpg.split('/').pop().slice(0, -4);
-                            if (jpgBase === trackName) {
-                                trackIcon = jpg;
-                                break;
-                            }
-                        }
-
-                        // Получить длительность
-                        let duration = 0;
-                        try {
-                            const rawUrl = `https://raw.githubusercontent.com/christian-word/Audio-Albomy/main/${encodeURIComponent(mp3)}`;
-                            const resp = await fetch(rawUrl);
-                            if (!resp.ok) throw new Error('Не удалось скачать MP3');
-                            const blob = await resp.blob();
-                            const objectUrl = URL.createObjectURL(blob);
-                            const audio = new Audio(objectUrl);
-                            duration = await new Promise((resolve, reject) => {
-                                audio.onloadedmetadata = () => {
-                                    resolve(Math.round(audio.duration || 0));
-                                    URL.revokeObjectURL(objectUrl);
-                                };
-                                audio.onerror = (e) => {
-                                    reject(e);
-                                    URL.revokeObjectURL(objectUrl);
-                                };
-                            });
-                        } catch (e) {
-                            console.warn(`Не удалось получить длительность для ${trackName}: ${e.message}`);
-                            duration = 0;
-                        }
-
-                        const newTrack = {
-                            name: trackName,
-                            url: mp3,
-                            icon: trackIcon,
-                            duration: duration
-                        };
-                        album.tracks.push(newTrack);
-                    }
-                }
-
-                displayData();
-                alert('Плейлист обновлен на основе сканирования репозитория.');
-            } catch (e) {
-                alert(`Ошибка: ${e.message}`);
-            }
-        });
-    </script>
+saveBtn.onclick=()=>{if(!albums)return;const blob=new Blob([pretty(albums)],{type:'application/json'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='albums.json';a.click();URL.revokeObjectURL(u);log('Сохранено','ok');};
+</script>
 </body>
 </html>
