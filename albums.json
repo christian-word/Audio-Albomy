@@ -249,5 +249,19 @@
             }
         ],
         "zip": null
+    },
+    {
+        "name": "Сборка Epic (09.25)",
+        "icon": "Music/Сборка Epic (09.25)/icon.jpg",
+        "category": "music",
+        "tracks": [
+            {
+                "name": "Exodus Music and Sound - Divergent ",
+                "url": "Music/Сборка Epic (09.25)/Exodus Music and Sound - Divergent .mp3",
+                "icon": null,
+                "duration": 129
+            }
+        ],
+        "zip": null
     }
 ]
