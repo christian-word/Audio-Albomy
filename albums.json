@@ -111,6 +111,12 @@
                 "url": "Music/Avalon-Zero/17 - Avalon Zero, Valentin Partyka - Earthquake [audiovk.com].mp3",
                 "icon": null,
                 "duration": 170
+            },
+            {
+                "name": "14 - Avalon Zero, David Chappell - Where Theres Smoke [audiovk.com]",
+                "url": "Music/Avalon-Zero/14 - Avalon Zero, David Chappell - Where Theres Smoke [audiovk.com].mp3",
+                "icon": null,
+                "duration": 159
             }
         ],
         "zip": null
@@ -181,5 +187,67 @@
                 "duration": 237
             }
         ]
+    },
+    {
+        "name": "Dos Brains Silver Screen",
+        "icon": "Music/Dos Brains Silver Screen/icon.jpg",
+        "category": "music",
+        "tracks": [
+            {
+                "name": "1 - Dos Brains Silver Screen - I Am Alive ",
+                "url": "Music/Dos Brains Silver Screen/1 - Dos Brains Silver Screen - I Am Alive .mp3",
+                "icon": null,
+                "duration": 144
+            },
+            {
+                "name": "2 - Dos Brains Silver Screen - Inner Force ",
+                "url": "Music/Dos Brains Silver Screen/2 - Dos Brains Silver Screen - Inner Force .mp3",
+                "icon": null,
+                "duration": 168
+            },
+            {
+                "name": "3 - Dos Brains Silver Screen - Fateful Exodus ",
+                "url": "Music/Dos Brains Silver Screen/3 - Dos Brains Silver Screen - Fateful Exodus .mp3",
+                "icon": null,
+                "duration": 167
+            },
+            {
+                "name": "4 - Dos Brains Silver Screen - Half Life ",
+                "url": "Music/Dos Brains Silver Screen/4 - Dos Brains Silver Screen - Half Life .mp3",
+                "icon": null,
+                "duration": 227
+            },
+            {
+                "name": "5 - Dos Brains Silver Screen - Forces Of Time ",
+                "url": "Music/Dos Brains Silver Screen/5 - Dos Brains Silver Screen - Forces Of Time .mp3",
+                "icon": null,
+                "duration": 172
+            },
+            {
+                "name": "6 - Dos Brains Silver Screen - Brainwatch ",
+                "url": "Music/Dos Brains Silver Screen/6 - Dos Brains Silver Screen - Brainwatch .mp3",
+                "icon": null,
+                "duration": 135
+            },
+            {
+                "name": "7 - Dos Brains Silver Screen - Ruthless Retribution ",
+                "url": "Music/Dos Brains Silver Screen/7 - Dos Brains Silver Screen - Ruthless Retribution .mp3",
+                "icon": null,
+                "duration": 156
+            },
+            {
+                "name": "8 - Dos Brains Silver Screen - Demonstration Of Force ",
+                "url": "Music/Dos Brains Silver Screen/8 - Dos Brains Silver Screen - Demonstration Of Force .mp3",
+                "icon": null,
+                "duration": 175
+            },
+            {
+                "name": "9 - Dos Brains Silver Screen - Unspeakable ",
+                "url": "Music/Dos Brains Silver Screen/9 - Dos Brains Silver Screen - Unspeakable .mp3",
+                "icon": null,
+                "duration": 151
+            }
+        ],
+        "zip": null
     }
 ]
