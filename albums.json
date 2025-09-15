@@ -260,6 +260,24 @@
                 "url": "Music/Сборка Epic (09.25)/Exodus Music and Sound - Divergent .mp3",
                 "icon": null,
                 "duration": 129
+            },
+            {
+                "name": "Epic North Music - Healing",
+                "url": "Music/Сборка Epic (09.25)/Epic North Music - Healing.mp3",
+                "icon": null,
+                "duration": 185
+            },
+            {
+                "name": "Epic Score - Abandoned but Still Strong",
+                "url": "Music/Сборка Epic (09.25)/Epic Score - Abandoned but Still Strong.mp3",
+                "icon": null,
+                "duration": 218
+            },
+            {
+                "name": "Exodus Music and Sound - Elysian Fields ",
+                "url": "Music/Сборка Epic (09.25)/Exodus Music and Sound - Elysian Fields .mp3",
+                "icon": null,
+                "duration": 149
             }
         ],
         "zip": null
