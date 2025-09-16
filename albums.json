@@ -251,63 +251,6 @@
         "zip": null
     },
     {
-        "name": "HYPERSONIC",
-        "icon": "Music/HYPERSONIC/icon.jpg",
-        "category": "epic",
-        "tracks": [
-            {
-                "name": "1 - HYPERSONIC - The Day Before Execution ",
-                "url": "Music/HYPERSONIC/1 - HYPERSONIC - The Day Before Execution .mp3",
-                "icon": null,
-                "duration": 188
-            },
-            {
-                "name": "2 - HYPERSONIC - Angel Of Wrath ",
-                "url": "Music/HYPERSONIC/2 - HYPERSONIC - Angel Of Wrath .mp3",
-                "icon": null,
-                "duration": 166
-            },
-            {
-                "name": "3 - HYPERSONIC - Dark Star ",
-                "url": "Music/HYPERSONIC/3 - HYPERSONIC - Dark Star .mp3",
-                "icon": null,
-                "duration": 153
-            },
-            {
-                "name": "4 - HYPERSONIC - Fallout ",
-                "url": "Music/HYPERSONIC/4 - HYPERSONIC - Fallout .mp3",
-                "icon": null,
-                "duration": 158
-            },
-            {
-                "name": "5 - HYPERSONIC - Perdition ",
-                "url": "Music/HYPERSONIC/5 - HYPERSONIC - Perdition .mp3",
-                "icon": null,
-                "duration": 175
-            },
-            {
-                "name": "6 - HYPERSONIC - Defectors ",
-                "url": "Music/HYPERSONIC/6 - HYPERSONIC - Defectors .mp3",
-                "icon": null,
-                "duration": 157
-            },
-            {
-                "name": "7 - HYPERSONIC - Righteous Fury ",
-                "url": "Music/HYPERSONIC/7 - HYPERSONIC - Righteous Fury .mp3",
-                "icon": null,
-                "duration": 162
-            },
-            {
-                "name": "8 - HYPERSONIC - Disciple Of Chaos ",
-                "url": "Music/HYPERSONIC/8 - HYPERSONIC - Disciple Of Chaos .mp3",
-                "icon": null,
-                "duration": 191
-            }
-        ],
-        "zip": null
-    },
-
-    {
         "name": "Сборка Epic (09.25)",
         "icon": "Music/Сборка Epic (09.25)/icon.jpg",
         "category": "music",
@@ -505,6 +448,62 @@
                 "url": "Music/Synthesis/Synthesis_-_Waiting_for_Sunrise.mp3",
                 "icon": null,
                 "duration": 378
+            }
+        ],
+        "zip": null
+    },
+    {
+        "name": "HYPERSONIC",
+        "icon": "Music/HYPERSONIC/icon.jpg",
+        "category": "music",
+        "tracks": [
+            {
+                "name": "1 - HYPERSONIC - The Day Before Execution ",
+                "url": "Music/HYPERSONIC/1 - HYPERSONIC - The Day Before Execution .mp3",
+                "icon": null,
+                "duration": 188
+            },
+            {
+                "name": "2 - HYPERSONIC - Angel Of Wrath ",
+                "url": "Music/HYPERSONIC/2 - HYPERSONIC - Angel Of Wrath .mp3",
+                "icon": null,
+                "duration": 166
+            },
+            {
+                "name": "3 - HYPERSONIC - Dark Star ",
+                "url": "Music/HYPERSONIC/3 - HYPERSONIC - Dark Star .mp3",
+                "icon": null,
+                "duration": 153
+            },
+            {
+                "name": "4 - HYPERSONIC - Fallout ",
+                "url": "Music/HYPERSONIC/4 - HYPERSONIC - Fallout .mp3",
+                "icon": null,
+                "duration": 158
+            },
+            {
+                "name": "5 - HYPERSONIC - Perdition ",
+                "url": "Music/HYPERSONIC/5 - HYPERSONIC - Perdition .mp3",
+                "icon": null,
+                "duration": 175
+            },
+            {
+                "name": "6 - HYPERSONIC - Defectors ",
+                "url": "Music/HYPERSONIC/6 - HYPERSONIC - Defectors .mp3",
+                "icon": null,
+                "duration": 157
+            },
+            {
+                "name": "7 - HYPERSONIC - Righteous Fury ",
+                "url": "Music/HYPERSONIC/7 - HYPERSONIC - Righteous Fury .mp3",
+                "icon": null,
+                "duration": 162
+            },
+            {
+                "name": "8 - HYPERSONIC - Disciple Of Chaos ",
+                "url": "Music/HYPERSONIC/8 - HYPERSONIC - Disciple Of Chaos .mp3",
+                "icon": null,
+                "duration": 191
             }
         ],
         "zip": null
