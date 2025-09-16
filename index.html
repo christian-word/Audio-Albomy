@@ -1300,6 +1300,9 @@
         <div id="current-album" class="current-album" style="display: none;"></div>
         <div id="tracks-controls" class="tracks-controls" style="display: none;">
             <div class="controls-left">
+                <button id="back-to-albums-top" class="back-to-albums-btn">
+                    <i class="fas fa-arrow-left"></i> Назад к альбомам
+                </button>
                 <select id="sort-select" class="sort-select">
                     <option value="name-asc">По имени (A-Z)</option>
                     <option value="name-desc">По имени (Z-A)</option>
@@ -1418,6 +1421,8 @@
         const settingsModal = document.getElementById('settings-modal');
         const closeModal = document.querySelector('.close-modal');
         const themeOptions = document.querySelectorAll('.theme-option');
+        // Новая кнопка "Назад к альбомам"
+        const backToAlbumsTopBtn = document.getElementById('back-to-albums-top');
         // Инициализация
         audioElement.volume = 0.7;
         volumeLevel.style.width = '70%';
@@ -1898,6 +1903,8 @@
         prevBtn.addEventListener('click', playPrev);
         shuffleModeBtn.addEventListener('click', toggleShuffle);
         repeatModeBtn.addEventListener('click', toggleRepeat);
+        // Новый обработчик для кнопки "Назад к альбомам"
+        backToAlbumsTopBtn.addEventListener('click', showAlbums);
         // События аудио элемента
         audioElement.addEventListener('timeupdate', () => {
             if (audioElement.duration) {
