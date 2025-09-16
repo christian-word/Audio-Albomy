@@ -253,7 +253,7 @@
     {
         "name": "Сборка Epic (09.25)",
         "icon": "Music/Сборка Epic (09.25)/icon.jpg",
-        "category": "music",
+        "category": "epic",
         "tracks": [
             {
                 "name": "Exodus Music and Sound - Divergent ",
@@ -504,6 +504,98 @@
                 "url": "Music/HYPERSONIC/8 - HYPERSONIC - Disciple Of Chaos .mp3",
                 "icon": null,
                 "duration": 191
+            }
+        ],
+        "zip": null
+    },
+    {
+        "name": "Brand X Music",
+        "icon": "Music/Brand X Music/icon.jpg",
+        "category": "epic",
+        "tracks": [
+            {
+                "name": "Brand X Music - Auryn",
+                "url": "Music/Brand X Music/Brand X Music - Auryn.mp3",
+                "icon": null,
+                "duration": 191
+            },
+            {
+                "name": "Brand X Music - Aviate",
+                "url": "Music/Brand X Music/Brand X Music - Aviate.mp3",
+                "icon": null,
+                "duration": 138
+            },
+            {
+                "name": "Brand X Music - Breathless",
+                "url": "Music/Brand X Music/Brand X Music - Breathless.mp3",
+                "icon": null,
+                "duration": 187
+            },
+            {
+                "name": "Brand X Music - Chronos",
+                "url": "Music/Brand X Music/Brand X Music - Chronos.mp3",
+                "icon": null,
+                "duration": 157
+            },
+            {
+                "name": "Brand X Music - Dawn Of Valor ",
+                "url": "Music/Brand X Music/Brand X Music - Dawn Of Valor .mp3",
+                "icon": null,
+                "duration": 175
+            },
+            {
+                "name": "Brand X Music - Everlasting",
+                "url": "Music/Brand X Music/Brand X Music - Everlasting.mp3",
+                "icon": null,
+                "duration": 184
+            },
+            {
+                "name": "Brand X Music - Hope and Courage",
+                "url": "Music/Brand X Music/Brand X Music - Hope and Courage.mp3",
+                "icon": null,
+                "duration": 194
+            },
+            {
+                "name": "Brand X Music - Legacy",
+                "url": "Music/Brand X Music/Brand X Music - Legacy.mp3",
+                "icon": null,
+                "duration": 229
+            },
+            {
+                "name": "Brand X Music - More than a Symbol",
+                "url": "Music/Brand X Music/Brand X Music - More than a Symbol.mp3",
+                "icon": null,
+                "duration": 150
+            },
+            {
+                "name": "Brand X Music - Oceanic",
+                "url": "Music/Brand X Music/Brand X Music - Oceanic.mp3",
+                "icon": null,
+                "duration": 190
+            },
+            {
+                "name": "Brand X Music - Patience",
+                "url": "Music/Brand X Music/Brand X Music - Patience.mp3",
+                "icon": null,
+                "duration": 145
+            },
+            {
+                "name": "Brand X Music - Skylantis",
+                "url": "Music/Brand X Music/Brand X Music - Skylantis.mp3",
+                "icon": null,
+                "duration": 215
+            },
+            {
+                "name": "Brand X Music Theatrical (Portal) - Unbroken Light Mix",
+                "url": "Music/Brand X Music/Brand X Music Theatrical (Portal) - Unbroken Light Mix.mp3",
+                "icon": null,
+                "duration": 217
+            },
+            {
+                "name": "Brand X Music Theatrical (Portal) - Unbroken",
+                "url": "Music/Brand X Music/Brand X Music Theatrical (Portal) - Unbroken.mp3",
+                "icon": null,
+                "duration": 217
             }
         ],
         "zip": null
