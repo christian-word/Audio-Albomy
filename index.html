@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -277,7 +277,9 @@
             color: var(--text-muted);
         }
         .current-album {
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
             margin: 2rem 0;
             padding: 1.5rem;
             background: var(--bg-card);
@@ -298,14 +300,35 @@
             opacity: 0.05;
             z-index: -1;
         }
+        .current-album-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: var(--shadow);
+            flex-shrink: 0;
+        }
+        .current-album-info {
+            flex: 1;
+        }
         .current-album h2 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
             background: var(--secondary);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 0.5rem;
+        }
+        .current-album .album-subtitle {
+            text-align: left;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .current-album p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin: 0;
         }
         .tracks-controls {
             display: flex;
@@ -1011,12 +1034,23 @@
                 left: 0.75rem;
                 font-size: 0.9rem;
             }
-            .current-album h2 {
-                font-size: 1.3rem;
-            }
             .current-album {
-                padding: 1.25rem;
+                padding: 1rem;
                 margin: 1.5rem 0;
+                gap: 1rem;
+            }
+            .current-album-image {
+                width: 60px;
+                height: 60px;
+            }
+            .current-album h2 {
+                font-size: 1.2rem;
+            }
+            .current-album .album-subtitle {
+                font-size: 0.8rem;
+            }
+            .current-album p {
+                font-size: 0.75rem;
             }
             body {
                 padding-bottom: 80px;
@@ -1105,6 +1139,19 @@
             }
             .playback-mode {
                 display: none;
+            }
+            .current-album {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.75rem;
+            }
+            .current-album-image {
+                width: 70px;
+                height: 70px;
+                margin: 0 auto;
+            }
+            .current-album-info {
+                text-align: center;
             }
         }
         @media (min-width: 769px) {
@@ -1669,12 +1716,20 @@
             const albumsGrid = document.getElementById('albums');
             tracksDiv.innerHTML = '';
             const albumDuration = album.tracks.reduce((sum, track) => sum + (track.duration || 0), 0);
+            
+            // Создаем элемент с обложкой и информацией об альбоме
             currentAlbumDiv.innerHTML = `
-                <h2>${album.name}</h2>
-                <p class="album-subtitle">${album.tracks.length} ${getTrackWord(album.tracks.length)} • ${formatDuration(albumDuration)}</p>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Высококачественное аудио</p>
+                <img src="${album.icon ? (album.icon.startsWith('http') ? album.icon : rawBase + album.icon) : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-10h2v6h-2zm0-2h2v1h-2z"/%3E%3C/svg%3E'}" 
+                     alt="${album.name}" 
+                     class="current-album-image"
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"%23667eea\"%3E%3Cpath d=\"M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-10h2v6h-2zm0-2h2v1h-2z\"/%3E%3C/svg%3E'">
+                <div class="current-album-info">
+                    <h2>${album.name}</h2>
+                    <div class="album-subtitle">${album.tracks.length} ${getTrackWord(album.tracks.length)} • ${formatDuration(albumDuration)}</div>
+                    <p>Высококачественное аудио</p>
+                </div>
             `;
-            currentAlbumDiv.style.display = 'block';
+            currentAlbumDiv.style.display = 'flex';
             tracksControlsDiv.style.display = 'flex';
             // Скрываем обложки альбомов
             albumsGrid.style.display = 'none';
