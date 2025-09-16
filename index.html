@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -1299,6 +1299,71 @@
         .theme-purple {
             background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
         }
+        /* Футер */
+        .footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        .footer a {
+            color: var(--accent-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .footer a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+        .social-link:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
     </style>
 </head>
 <body>
@@ -1360,6 +1425,46 @@
         </div>
         <div id="tracks" class="tracks-container" style="display: none;"></div>
         <div id="offline-status" class="offline-status"></div>
+        
+        <!-- Футер -->
+        <footer class="footer">
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="total-albums">0</div>
+                    <div class="stat-label">Альбомов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="total-tracks">0</div>
+                    <div class="stat-label">Треков</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="total-duration">00:00</div>
+                    <div class="stat-label">Общая длительность</div>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="#" class="social-link" title="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            
+            <p>© 2025 Sound Voice Media | г. Сумы, © 2025 р.</p>
+            <p>
+                <a href="#">Политика конфиденциальности</a> • 
+                <a href="#">Условия использования</a> • 
+                <a href="#">Контакты</a>
+            </p>
+        </footer>
     </div>
     <div class="player-container">
         <div class="custom-player">
@@ -1692,6 +1797,12 @@
                         totalDuration += track.duration || 0;
                     });
                 });
+                
+                // Обновление статистики в футере
+                document.getElementById('total-albums').textContent = allAlbums.length;
+                document.getElementById('total-tracks').textContent = totalTracks;
+                document.getElementById('total-duration').textContent = formatDuration(totalDuration);
+                
                 filterContent('');
                 hideLoading();
             } catch (error) {
@@ -1716,7 +1827,6 @@
             const albumsGrid = document.getElementById('albums');
             tracksDiv.innerHTML = '';
             const albumDuration = album.tracks.reduce((sum, track) => sum + (track.duration || 0), 0);
-            
             // Создаем элемент с обложкой и информацией об альбоме
             currentAlbumDiv.innerHTML = `
                 <img src="${album.icon ? (album.icon.startsWith('http') ? album.icon : rawBase + album.icon) : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-10h2v6h-2zm0-2h2v1h-2z"/%3E%3C/svg%3E'}" 
