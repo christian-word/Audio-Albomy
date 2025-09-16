@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
     <title>Gospel Audio Player</title>
-
+    <link rel="manifest" href="/Audio-Albomy/manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -1252,96 +1252,6 @@
         .theme-purple {
             background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
         }
-        /* Стили для эквалайзера */
-        .eq-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        .eq-controls {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .eq-presets {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        .eq-preset-btn {
-            padding: 0.5rem 1rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.8rem;
-        }
-        .eq-preset-btn:hover,
-        .eq-preset-btn.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-        .eq-visualizer {
-            width: 100%;
-            height: 100px;
-            background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 2px;
-            padding: 10px;
-        }
-        .eq-bar-visual {
-            width: 8px;
-            background: var(--accent-light);
-            border-radius: 4px 4px 0 0;
-            transition: height 0.1s ease;
-        }
-        .eq-frequency-labels {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            padding: 0 10px;
-            margin-top: 5px;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-        .eq-sliders {
-            display: flex;
-            gap: 1rem;
-            width: 100%;
-            overflow-x: auto;
-            padding: 10px 0;
-        }
-        .eq-slider-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 40px;
-        }
-        .eq-slider-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin-bottom: 5px;
-        }
-        .eq-slider {
-            -webkit-appearance: slider-vertical;
-            width: 16px;
-            height: 100px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-        }
     </style>
 </head>
 <body>
@@ -1360,52 +1270,6 @@
                         <div class="theme-option theme-blue" data-theme="blue"></div>
                         <div class="theme-option theme-green" data-theme="green"></div>
                         <div class="theme-option theme-purple" data-theme="purple"></div>
-                    </div>
-                </div>
-                <!-- Эквалайзер в настройках -->
-                <div class="setting-item">
-                    <div class="setting-label">Эквалайзер</div>
-                    <button id="eq-toggle" class="player-btn">
-                        <i class="fas fa-sliders-h"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Модальное окно эквалайзера -->
-    <div class="modal" id="eq-modal">
-        <div class="modal-content" style="width: 500px;">
-            <div class="modal-header">
-                <div class="modal-title">Эквалайзер</div>
-                <button class="close-modal" id="close-eq-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="eq-controls">
-                    <div class="eq-presets">
-                        <button class="eq-preset-btn active" data-preset="flat">Плоский</button>
-                        <button class="eq-preset-btn" data-preset="pop">Поп</button>
-                        <button class="eq-preset-btn" data-preset="rock">Рок</button>
-                        <button class="eq-preset-btn" data-preset="classical">Классика</button>
-                    </div>
-                </div>
-                <div class="eq-container">
-                    <div class="eq-visualizer" id="eq-visualizer">
-                        <!-- Визуализатор будет создан динамически -->
-                    </div>
-                    <div class="eq-frequency-labels">
-                        <span>60Hz</span>
-                        <span>170Hz</span>
-                        <span>310Hz</span>
-                        <span>600Hz</span>
-                        <span>1kHz</span>
-                        <span>3kHz</span>
-                        <span>6kHz</span>
-                        <span>12kHz</span>
-                        <span>14kHz</span>
-                        <span>16kHz</span>
-                    </div>
-                    <div class="eq-sliders" id="eq-sliders">
-                        <!-- Слайдеры будут созданы динамически -->
                     </div>
                 </div>
             </div>
@@ -1436,9 +1300,6 @@
         <div id="current-album" class="current-album" style="display: none;"></div>
         <div id="tracks-controls" class="tracks-controls" style="display: none;">
             <div class="controls-left">
-                <button id="back-to-albums-top" class="back-to-albums-btn">
-                    <i class="fas fa-arrow-left"></i> Назад к альбомам
-                </button>
                 <select id="sort-select" class="sort-select">
                     <option value="name-asc">По имени (A-Z)</option>
                     <option value="name-desc">По имени (Z-A)</option>
@@ -1510,1032 +1371,787 @@
                     <button id="repeat-mode" class="mode-btn" title="Повтор">
                         <i class="fas fa-redo"></i>
                     </button>
-                    <button id="eq-player-btn" class="mode-btn" title="Эквалайзер">
-                        <i class="fas fa-sliders-h"></i>
-                    </button>
                 </div>
             </div>
         </div>
         <!-- Скрытый аудио элемент -->
         <audio id="audio-element" preload="auto" playsinline></audio>
     </div>
-
-<script>
-    const repo = 'christian-word/Audio-Albomy';
-    const branch = 'main';
-    const rawBase = `https://raw.githubusercontent.com/${repo}/${branch}/`;
-    // Глобальные переменные
-    let currentPlaylist = [];
-    let originalPlaylist = [];
-    let currentIndex = 0;
-    let trackElements = [];
-    let allAlbums = [];
-    let currentAlbum = null;
-    let isShuffled = false;
-    let repeatMode = 'none'; // none, one, all
-    let totalTracks = 0;
-    let totalDuration = 0;
-    let currentCategory = 'all'; // Текущая категория
-    // Элементы кастомного плеера
-    const audioElement = document.getElementById('audio-element');
-    const playBtn = document.getElementById('play-btn');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const progressBar = document.getElementById('progress-bar');
-    const progressContainer = document.getElementById('progress-container');
-    const progressTopContainer = document.getElementById('progress-top-container');
-    const progressTopBar = document.getElementById('progress-top-bar');
-    const currentTimeEl = document.getElementById('current-time');
-    const totalTimeEl = document.getElementById('total-time');
-    const volumeSlider = document.getElementById('volume-slider');
-    const volumeLevel = document.getElementById('volume-level');
-    const volumeBtn = document.getElementById('volume-btn');
-    const playerTrackName = document.getElementById('player-track-name');
-    const playerTrackAlbum = document.getElementById('player-track-album');
-    const playerTrackImage = document.getElementById('player-track-image');
-    const equalizer = document.getElementById('equalizer');
-    const shuffleModeBtn = document.getElementById('shuffle-mode');
-    const repeatModeBtn = document.getElementById('repeat-mode');
-    const loadingBar = document.getElementById('loading-bar');
-    const menuBtn = document.getElementById('menu-btn');
-    const settingsModal = document.getElementById('settings-modal');
-    const closeModal = document.querySelector('.close-modal');
-    const themeOptions = document.querySelectorAll('.theme-option');
-    // Новая кнопка "Назад к альбомам"
-    const backToAlbumsTopBtn = document.getElementById('back-to-albums-top');
-    // Элементы эквалайзера
-    const eqModal = document.getElementById('eq-modal');
-    const eqToggle = document.getElementById('eq-toggle');
-    const closeEqModal = document.getElementById('close-eq-modal');
-    const eqPlayerBtn = document.getElementById('eq-player-btn');
-    const eqPresetBtns = document.querySelectorAll('.eq-preset-btn');
-    const eqVisualizer = document.getElementById('eq-visualizer');
-    const eqSliders = document.getElementById('eq-sliders');
-    // Web Audio API переменные
-    let audioContext = null;
-    let sourceNode = null;
-    let gainNode = null;
-    let analyser = null;
-    let isEqActive = false;
-    let eqFilters = [];
-    // Пресеты эквалайзера
-    const eqPresets = {
-        flat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        pop: [2, 1, 0, -1, -2, -1, 0, 1, 2, 3],
-        rock: [3, 2, 1, 0, -1, -2, -1, 1, 2, 3],
-        classical: [-2, -1, 0, 1, 2, 1, 0, -1, -1, -1]
-    };
-    let currentPreset = 'flat';
-    // Инициализация визуализатора эквалайзера
-    function initEqVisualizer() {
-        eqVisualizer.innerHTML = '';
-        for (let i = 0; i < 10; i++) {
-            const bar = document.createElement('div');
-            bar.className = 'eq-bar-visual';
-            bar.style.height = '5px';
-            eqVisualizer.appendChild(bar);
-        }
-    }
-    // Анимация визуализатора эквалайзера
-    function animateEq() {
-        if (!analyser || !isEqActive) return;
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-        analyser.getByteFrequencyData(dataArray);
-        const bars = eqVisualizer.querySelectorAll('.eq-bar-visual');
-        const bandWidth = Math.floor(bufferLength / bars.length);
-        bars.forEach((bar, index) => {
-            // Получаем среднее значение для этой полосы частот
-            let sum = 0;
-            for (let i = 0; i < bandWidth; i++) {
-                sum += dataArray[index * bandWidth + i];
+    <script>
+        const repo = 'christian-word/Audio-Albomy';
+        const branch = 'main';
+        const rawBase = `https://raw.githubusercontent.com/${repo}/${branch}/`;
+        // Глобальные переменные
+        let currentPlaylist = [];
+        let originalPlaylist = [];
+        let currentIndex = 0;
+        let trackElements = [];
+        let allAlbums = [];
+        let currentAlbum = null;
+        let isShuffled = false;
+        let repeatMode = 'none'; // none, one, all
+        let totalTracks = 0;
+        let totalDuration = 0;
+        let currentCategory = 'all'; // Текущая категория
+        // Элементы кастомного плеера
+        const audioElement = document.getElementById('audio-element');
+        const playBtn = document.getElementById('play-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressContainer = document.getElementById('progress-container');
+        const progressTopContainer = document.getElementById('progress-top-container');
+        const progressTopBar = document.getElementById('progress-top-bar');
+        const currentTimeEl = document.getElementById('current-time');
+        const totalTimeEl = document.getElementById('total-time');
+        const volumeSlider = document.getElementById('volume-slider');
+        const volumeLevel = document.getElementById('volume-level');
+        const volumeBtn = document.getElementById('volume-btn');
+        const playerTrackName = document.getElementById('player-track-name');
+        const playerTrackAlbum = document.getElementById('player-track-album');
+        const playerTrackImage = document.getElementById('player-track-image');
+        const equalizer = document.getElementById('equalizer');
+        const shuffleModeBtn = document.getElementById('shuffle-mode');
+        const repeatModeBtn = document.getElementById('repeat-mode');
+        const loadingBar = document.getElementById('loading-bar');
+        const menuBtn = document.getElementById('menu-btn');
+        const settingsModal = document.getElementById('settings-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const themeOptions = document.querySelectorAll('.theme-option');
+        // Инициализация
+        audioElement.volume = 0.7;
+        volumeLevel.style.width = '70%';
+        // Форматирование длительности
+        function formatDuration(seconds) {
+            if (!seconds || isNaN(seconds)) return '00:00';
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            if (hours > 0) {
+                return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
             }
-            const average = sum / bandWidth;
-            // Преобразуем в высоту (0-100%)
-            const height = Math.max(5, (average / 256) * 100);
-            bar.style.height = `${height}%`;
-        });
-        requestAnimationFrame(animateEq);
-    }
-// Инициализация Web Audio API
-function initAudioContext() {
-    // Проверяем, не инициализирован ли уже аудиоконтекст
-    if (!audioContext) {
-        // Создаем новый аудиоконтекст
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // Создаем узлы
-        gainNode = audioContext.createGain();
-        analyser = audioContext.createAnalyser();
-        analyser.fftSize = 256;
-
-        // Создаем фильтры для эквалайзера
-        eqFilters = [];
-        const frequencies = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
-        for (let i = 0; i < 10; i++) {
-            const filter = audioContext.createBiquadFilter();
-            filter.type = 'peaking';
-            filter.frequency.value = frequencies[i];
-            filter.Q.value = 1.0;
-            filter.gain.value = eqPresets[currentPreset][i];
-            eqFilters.push(filter);
+            return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         }
-        
-        // Соединяем фильтры последовательно
-        for (let i = 0; i < eqFilters.length - 1; i++) {
-            eqFilters[i].connect(eqFilters[i + 1]);
+        // Показать индикатор загрузки
+        function showLoading() {
+            loadingBar.classList.add('active');
         }
-        
-        // Создаем основную цепочку: 
-        // gainNode -> первый эквалайзер (eqFilters[0]) -> ... -> последний эквалайзер (eqFilters[9]) -> analyser -> выход (destination)
-        gainNode.connect(eqFilters[0]);
-        eqFilters[eqFilters.length - 1].connect(analyser);
-        analyser.connect(audioContext.destination);
-
-        // Инициализируем визуализатор (это не связано напрямую со звуком, но важно для UI)
-        initEqVisualizer();
-        // Инициализируем слайдеры эквалайзера (тоже для UI)
-        initEqSliders();
-    }
-    // НЕ вызываем connectAudioElement() здесь
-}
-    // Применение пресета эквалайзера
-    function applyEqPreset(preset) {
-        if (!audioContext) return;
-        currentPreset = preset;
-        const gains = eqPresets[preset];
-        eqFilters.forEach((filter, index) => {
-            filter.gain.value = gains[index];
-        });
-        // Обновляем UI
-        eqPresetBtns.forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.preset === preset);
-        });
-        // Обновляем слайдеры
-        document.querySelectorAll('.eq-slider').forEach((slider, index) => {
-            slider.value = gains[index];
-        });
-    }
-    // Инициализация слайдеров эквалайзера
-    function initEqSliders() {
-        eqSliders.innerHTML = '';
-        const frequencies = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
-        const labels = ['60Hz', '170Hz', '310Hz', '600Hz', '1kHz', '3kHz', '6kHz', '12kHz', '14kHz', '16kHz'];
-        frequencies.forEach((freq, index) => {
-            const container = document.createElement('div');
-            container.className = 'eq-slider-container';
-            const label = document.createElement('div');
-            label.className = 'eq-slider-label';
-            label.textContent = labels[index];
-            container.appendChild(label);
-            const slider = document.createElement('input');
-            slider.type = 'range';
-            slider.className = 'eq-slider';
-            slider.min = -12;
-            slider.max = 12;
-            slider.value = eqPresets[currentPreset][index];
-            slider.dataset.index = index;
-            slider.addEventListener('input', (e) => {
-                const value = parseInt(e.target.value);
-                if (audioContext && eqFilters[index]) {
-                    eqFilters[index].gain.value = value;
-                }
-                // Обновляем пресет на пользовательский
-                currentPreset = 'custom';
-                eqPresetBtns.forEach(btn => btn.classList.remove('active'));
-            });
-            container.appendChild(slider);
-            eqSliders.appendChild(container);
-        });
-    }
-
-// Подключение аудио элемента к Web Audio API
-function connectAudioElement() {
-    // Проверяем, существует ли аудиоконтекст
-    if (!audioContext) return;
-
-    // Если sourceNode уже существует, отключаем его
-    // Это важно при смене трека
-    if (sourceNode) {
-        try {
-            sourceNode.disconnect();
-        } catch (e) {
-            // Игнорируем ошибки отключения
+        // Скрыть индикатор загрузки
+        function hideLoading() {
+            loadingBar.classList.remove('active');
         }
-    }
-
-    // Создаем новый source node из audioElement
-    sourceNode = audioContext.createMediaElementSource(audioElement);
-
-    // Подключаем sourceNode к gainNode (начало нашей цепочки эффектов)
-    sourceNode.connect(gainNode);
-}
-    // Инициализация
-    audioElement.volume = 0.7;
-    volumeLevel.style.width = '70%';
-    // Форматирование длительности
-    function formatDuration(seconds) {
-        if (!seconds || isNaN(seconds)) return '00:00';
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const secs = Math.floor(seconds % 60);
-        if (hours > 0) {
-            return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-        return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
-    // Показать индикатор загрузки
-    function showLoading() {
-        loadingBar.classList.add('active');
-    }
-    // Скрыть индикатор загрузки
-    function hideLoading() {
-        loadingBar.classList.remove('active');
-    }
-    // Перемешивание массива (алгоритм Фишера-Йейтса)
-    function shuffleArray(array) {
-        const shuffled = [...array];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        return shuffled;
-    }
-    // Переключение режима перемешивания
-    function toggleShuffle() {
-        isShuffled = !isShuffled;
-        shuffleModeBtn.classList.toggle('active', isShuffled);
-        if (isShuffled) {
-            // Сохраняем оригинальный плейлист и перемешиваем
-            originalPlaylist = [...currentPlaylist];
-            const currentTrack = currentPlaylist[currentIndex];
-            currentPlaylist = shuffleArray(currentPlaylist);
-            // Находим текущий трек в новом порядке
-            currentIndex = currentPlaylist.findIndex(track => track.url === currentTrack?.url);
-            if (currentIndex === -1) currentIndex = 0;
-        } else {
-            // Возвращаем оригинальный порядок
-            const currentTrack = currentPlaylist[currentIndex];
-            currentPlaylist = [...originalPlaylist];
-            currentIndex = currentPlaylist.findIndex(track => track.url === currentTrack?.url);
-            if (currentIndex === -1) currentIndex = 0;
-        }
-        updateNavButtons();
-    }
-    // Переключение режима повтора
-    function toggleRepeat() {
-        const modes = ['none', 'one', 'all'];
-        const currentModeIndex = modes.indexOf(repeatMode);
-        repeatMode = modes[(currentModeIndex + 1) % modes.length];
-        repeatModeBtn.classList.toggle('active', repeatMode !== 'none');
-        const icon = repeatModeBtn.querySelector('i');
-        switch (repeatMode) {
-            case 'none':
-                icon.className = 'fas fa-redo';
-                repeatModeBtn.title = 'Повтор';
-                break;
-            case 'one':
-                icon.className = 'fas fa-redo-alt';
-                repeatModeBtn.title = 'Повтор трека';
-                break;
-            case 'all':
-                icon.className = 'fas fa-redo';
-                repeatModeBtn.title = 'Повтор всех';
-                break;
-        }
-    }
-    // Обновление информации о треке в плеере
-    function updatePlayerInfo() {
-        if (currentIndex >= 0 && currentIndex < currentPlaylist.length) {
-            const track = currentPlaylist[currentIndex];
-            playerTrackName.textContent = track.name;
-            playerTrackAlbum.textContent = currentAlbum ? currentAlbum.name : 'Неизвестный альбом';
-            playerTrackImage.src = track.icon || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-10h2v6h-2zm0-2h2v1h-2z"/%3E%3C/svg%3E';
-            // Обновление Media Session API
-            if ('mediaSession' in navigator) {
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: track.name,
-                    album: currentAlbum?.name || 'Gospel Audio',
-                    artist: 'Gospel Audio Collection',
-                    artwork: [
-                        { src: track.icon || '/Audio-Albomy/icon.png', sizes: '192x192', type: 'image/png' },
-                        { src: track.icon || '/Audio-Albomy/icon.png', sizes: '512x512', type: 'image/png' }
-                    ]
-                });
+        // Перемешивание массива (алгоритм Фишера-Йейтса)
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
             }
-        } else {
-            playerTrackName.textContent = 'Нет активного трека';
-            playerTrackAlbum.textContent = 'Выберите трек для воспроизведения';
+            return shuffled;
         }
-    }
-    // Обновление кнопок навигации
-    function updateNavButtons() {
-        if (repeatMode === 'all' || isShuffled) {
-            prevBtn.disabled = false;
-            nextBtn.disabled = false;
-        } else {
-            prevBtn.disabled = currentIndex <= 0;
-            nextBtn.disabled = currentIndex >= currentPlaylist.length - 1;
-        }
-    }
-    // Обновление визуального состояния треков
-    function updateTrackStates() {
-        trackElements.forEach((el, index) => {
-            el.classList.remove('active', 'playing');
-            if (index === currentIndex) {
-                el.classList.add('active');
-                if (!audioElement.paused) {
-                    el.classList.add('playing');
-                }
-            }
-        });
-    }
-    // Фильтрация контента по категории и поиску
-    function filterContent(searchTerm = '') {
-        const albumsDiv = document.getElementById('albums');
-        albumsDiv.innerHTML = '';
-        const lowerTerm = searchTerm.toLowerCase();
-        // Фильтрация альбомов по категории
-        let filteredAlbums = allAlbums;
-        if (currentCategory !== 'all') {
-            filteredAlbums = allAlbums.filter(album => 
-                album.category === currentCategory
-            );
-        }
-        // Фильтрация по поисковому запросу
-        if (lowerTerm) {
-            filteredAlbums = filteredAlbums.filter(album => 
-                album.name.toLowerCase().includes(lowerTerm) ||
-                album.tracks.some(track => track.name.toLowerCase().includes(lowerTerm))
-            );
-        }
-        if (filteredAlbums.length === 0) {
-            albumsDiv.innerHTML = `
-                <div class="no-results">
-                    <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                    <p>Ничего не найдено по запросу "${searchTerm}"</p>
-                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Попробуйте изменить поисковый запрос</p>
-                </div>
-            `;
-            return;
-        }
-        filteredAlbums.forEach((album, index) => {
-            const albumDiv = document.createElement('div');
-            albumDiv.className = 'album-card fade-in';
-            albumDiv.style.animationDelay = `${index * 0.1}s`;
-            // Обложка альбома
-            if (album.icon) {
-                const img = document.createElement('img');
-                img.src = album.icon.startsWith('http') ? album.icon : rawBase + album.icon;
-                img.className = 'album-image';
-                img.onerror = () => img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-10h2v6h-2zm0-2h2v1h-2z"/%3E%3C/svg%3E';
-                albumDiv.appendChild(img);
+        // Переключение режима перемешивания
+        function toggleShuffle() {
+            isShuffled = !isShuffled;
+            shuffleModeBtn.classList.toggle('active', isShuffled);
+            if (isShuffled) {
+                // Сохраняем оригинальный плейлист и перемешиваем
+                originalPlaylist = [...currentPlaylist];
+                const currentTrack = currentPlaylist[currentIndex];
+                currentPlaylist = shuffleArray(currentPlaylist);
+                // Находим текущий трек в новом порядке
+                currentIndex = currentPlaylist.findIndex(track => track.url === currentTrack?.url);
+                if (currentIndex === -1) currentIndex = 0;
             } else {
-                const iconDiv = document.createElement('div');
-                iconDiv.innerHTML = '<i class="fas fa-music" style="font-size: 70px; color: var(--accent); margin-bottom: 1rem;"></i>';
-                iconDiv.style.textAlign = 'center';
-                albumDiv.appendChild(iconDiv);
+                // Возвращаем оригинальный порядок
+                const currentTrack = currentPlaylist[currentIndex];
+                currentPlaylist = [...originalPlaylist];
+                currentIndex = currentPlaylist.findIndex(track => track.url === currentTrack?.url);
+                if (currentIndex === -1) currentIndex = 0;
             }
-            // Название альбома
-            const titleDiv = document.createElement('div');
-            titleDiv.className = 'album-title';
-            titleDiv.textContent = album.name;
-            albumDiv.appendChild(titleDiv);
-            // Информация о количестве треков
-            const subtitleDiv = document.createElement('div');
-            subtitleDiv.className = 'album-subtitle';
-            subtitleDiv.textContent = `${album.tracks.length} ${getTrackWord(album.tracks.length)}`;
-            albumDiv.appendChild(subtitleDiv);
-            // Метаинформация
-            const albumDuration = album.tracks.reduce((sum, track) => sum + (track.duration || 0), 0);
-            const metaDiv = document.createElement('div');
-            metaDiv.className = 'album-meta';
-            metaDiv.innerHTML = `
-                <div class="album-meta-item">
-                    <i class="fas fa-clock"></i>
-                    ${formatDuration(albumDuration)}
-                </div>
-                <div class="album-meta-item">
-                    <i class="fas fa-calendar"></i>
-                    ${new Date().getFullYear()}
-                </div>
-            `;
-            albumDiv.appendChild(metaDiv);
-            albumDiv.onclick = () => loadTracks(album);
-            albumsDiv.appendChild(albumDiv);
-        });
-        if (currentAlbum) {
-            loadTracks(currentAlbum, lowerTerm);
-        }
-    }
-    // Склонение слова "трек"
-    function getTrackWord(count) {
-        if (count % 10 === 1 && count % 100 !== 11) return 'трек';
-        if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) return 'трека';
-        return 'треков';
-    }
-    // Загрузка альбомов
-    async function loadAlbums() {
-        const albumsDiv = document.getElementById('albums');
-        albumsDiv.innerHTML = '<div class="loading">Загрузка альбомов...</div>';
-        showLoading();
-        try {
-            const response = await fetch(`${rawBase}albums.json`);
-            if (!response.ok) throw new Error(`Не удалось загрузить albums.json: ${response.status}`);
-            allAlbums = await response.json();
-            // Подсчет общей статистики
-            totalTracks = 0;
-            totalDuration = 0;
-            allAlbums.forEach(album => {
-                totalTracks += album.tracks.length;
-                album.tracks.forEach(track => {
-                    totalDuration += track.duration || 0;
-                });
-            });
-            filterContent('');
-            hideLoading();
-        } catch (error) {
-            console.error('Ошибка загрузки альбомов:', error);
-            albumsDiv.innerHTML = `
-                <div class="error">
-                    <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                    <p>Ошибка загрузки альбомов</p>
-                    <small>Проверьте файл albums.json в репозитории</small>
-                    <button onclick="loadAlbums()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer;">Повторить попытку</button>
-                </div>
-            `;
-            hideLoading();
-        }
-    }
-    // Загрузка треков альбома
-    function loadTracks(album, searchTerm = '') {
-        currentAlbum = album;
-        const tracksDiv = document.getElementById('tracks');
-        const currentAlbumDiv = document.getElementById('current-album');
-        const tracksControlsDiv = document.getElementById('tracks-controls');
-        const albumsGrid = document.getElementById('albums');
-        tracksDiv.innerHTML = '';
-        const albumDuration = album.tracks.reduce((sum, track) => sum + (track.duration || 0), 0);
-        currentAlbumDiv.innerHTML = `
-            <h2>${album.name}</h2>
-            <p class="album-subtitle">${album.tracks.length} ${getTrackWord(album.tracks.length)} • ${formatDuration(albumDuration)}</p>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Высококачественное аудио</p>
-        `;
-        currentAlbumDiv.style.display = 'block';
-        tracksControlsDiv.style.display = 'flex';
-        // Скрываем обложки альбомов
-        albumsGrid.style.display = 'none';
-        currentPlaylist = [];
-        originalPlaylist = [];
-        trackElements = [];
-        let tracks = album.tracks.filter(track => 
-            !searchTerm || track.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        const sortSelect = document.getElementById('sort-select');
-        const sortValue = sortSelect.value;
-        tracks.sort((a, b) => {
-            if (sortValue === 'name-asc') return a.name.localeCompare(b.name, 'ru');
-            if (sortValue === 'name-desc') return b.name.localeCompare(a.name, 'ru');
-            if (sortValue === 'duration-asc') return (a.duration || 0) - (b.duration || 0);
-            if (sortValue === 'duration-desc') return (b.duration || 0) - (a.duration || 0);
-            return 0;
-        });
-        if (tracks.length === 0) {
-            tracksDiv.innerHTML = '<div class="no-results">Ничего не найдено в этом альбоме</div>';
-            tracksDiv.style.display = 'block';
-            return;
-        }
-        tracks.forEach((track, trackIndex) => {
-            if (!track.url) {
-                console.warn(`Пропущен трек ${track.name}: пустой URL`);
-                return;
-            }
-            const trackUrl = track.url.startsWith('http') ? track.url : rawBase + track.url;
-            const iconUrl = track.icon ? 
-                (track.icon.startsWith('http') ? track.icon : rawBase + track.icon) : 
-                (album.icon ? 
-                    (album.icon.startsWith('http') ? album.icon : rawBase + album.icon) : 
-                    'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-10h2v6h-2zm0-2h2v1h-2z"/%3E%3C/svg%3E'
-                );
-            currentPlaylist.push({
-                name: track.name,
-                url: trackUrl,
-                icon: iconUrl,
-                duration: track.duration,
-                artist: track.artist || album.name
-            });
-            const index = currentPlaylist.length - 1;
-            const trackDiv = document.createElement('div');
-            trackDiv.className = 'track slide-up';
-            trackDiv.style.animationDelay = `${trackIndex * 0.05}s`;
-            trackDiv.dataset.index = index;
-            // Номер трека
-            const trackNumber = document.createElement('div');
-            trackNumber.className = 'track-number';
-            trackNumber.textContent = trackIndex + 1;
-            trackDiv.appendChild(trackNumber);
-            // Обложка трека
-            const iconImg = document.createElement('img');
-            iconImg.src = iconUrl;
-            iconImg.className = 'track-image';
-            iconImg.onerror = () => iconImg.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-10h2v6h-2zm0-2h2v1h-2z"/%3E%3C/svg%3E';
-            trackDiv.appendChild(iconImg);
-            // Информация о треке
-            const trackInfoDiv = document.createElement('div');
-            trackInfoDiv.className = 'track-info';
-            const playBtn = document.createElement('button');
-            playBtn.className = 'track-name';
-            playBtn.textContent = track.name;
-            trackInfoDiv.appendChild(playBtn);
-            const artistDiv = document.createElement('div');
-            artistDiv.className = 'track-artist';
-            artistDiv.textContent = track.artist || album.name;
-            trackInfoDiv.appendChild(artistDiv);
-            trackDiv.appendChild(trackInfoDiv);
-            // Длительность
-            const durationSpan = document.createElement('span');
-            durationSpan.className = 'track-duration';
-            durationSpan.textContent = formatDuration(track.duration);
-            trackDiv.appendChild(durationSpan);
-            // Действия с треком
-            const actionsDiv = document.createElement('div');
-            actionsDiv.className = 'track-actions';
-            const dlLink = document.createElement('a');
-            dlLink.href = trackUrl;
-            dlLink.download = track.name;
-            dlLink.className = 'download-link desktop-only';
-            dlLink.innerHTML = '<i class="fas fa-download"></i>';
-            dlLink.title = 'Скачать трек';
-            actionsDiv.appendChild(dlLink);
-            const dlLinkMobile = document.createElement('a');
-            dlLinkMobile.href = trackUrl;
-            dlLinkMobile.download = track.name;
-            dlLinkMobile.className = 'download-link mobile-only';
-            dlLinkMobile.innerHTML = '<i class="fas fa-download"></i>';
-            dlLinkMobile.title = 'Скачать трек';
-            actionsDiv.appendChild(dlLinkMobile);
-            trackDiv.appendChild(actionsDiv);
-            playBtn.onclick = () => playTrack(index);
-            trackDiv.onclick = (e) => {
-                // Игнорируем клик, если он был по кнопке или ссылке
-                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
-                playTrack(index);
-            };
-            tracksDiv.appendChild(trackDiv);
-            trackElements.push(trackDiv);
-        });
-        originalPlaylist = [...currentPlaylist];
-        // Кнопка скачивания альбома
-        if (album.zip) {
-            const dlAlbum = document.createElement('a');
-            dlAlbum.href = album.zip.startsWith('http') ? album.zip : rawBase + album.zip;
-            dlAlbum.download = `${album.name}.zip`;
-            dlAlbum.innerHTML = '<i class="fas fa-download"></i> Скачать весь альбом';
-            dlAlbum.className = 'download-album';
-            dlAlbum.style.textAlign = 'center';
-            dlAlbum.style.display = 'block';
-            dlAlbum.style.marginTop = '2rem';
-            tracksDiv.appendChild(dlAlbum);
-        }
-        tracksDiv.style.display = 'block';
-        updateNavButtons();
-    }
-    // Возврат к альбомам
-    function showAlbums() {
-        const tracksDiv = document.getElementById('tracks');
-        const currentAlbumDiv = document.getElementById('current-album');
-        const tracksControlsDiv = document.getElementById('tracks-controls');
-        const albumsGrid = document.getElementById('albums');
-        // Скрываем треки и элементы управления треками
-        tracksDiv.style.display = 'none';
-        currentAlbumDiv.style.display = 'none';
-        tracksControlsDiv.style.display = 'none';
-        // Показываем обложки альбомов
-        albumsGrid.style.display = 'grid';
-        // Сбрасываем текущий альбом
-        currentAlbum = null;
-        // Сбрасываем поиск
-        document.getElementById('search-input').value = '';
-        filterContent('');
-    }
-  
-// Воспроизведение трека
-function playTrack(index) {
-    if (index >= 0 && index < currentPlaylist.length) {
-        currentIndex = index;
-        const track = currentPlaylist[index];
-        
-        // Показываем загрузку
-        showLoading();
-        
-        // Устанавливаем источник аудио
-        audioElement.src = track.url;
-        // Загружаем трек
-        audioElement.load();
-        
-        // Начинаем воспроизведение
-        audioElement.play().then(() => {
-            // Обновляем UI плеера
-            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-            equalizer.style.display = 'flex';
-            updatePlayerInfo();
             updateNavButtons();
-            updateTrackStates();
-            hideLoading();
-            
-            // === ИСПРАВЛЕНИЕ ЗВУКА ===
-            // Инициализируем Web Audio API, если это первый запуск
-            if (!audioContext) {
-                initAudioContext(); // Создаем узлы
+        }
+        // Переключение режима повтора
+        function toggleRepeat() {
+            const modes = ['none', 'one', 'all'];
+            const currentModeIndex = modes.indexOf(repeatMode);
+            repeatMode = modes[(currentModeIndex + 1) % modes.length];
+            repeatModeBtn.classList.toggle('active', repeatMode !== 'none');
+            const icon = repeatModeBtn.querySelector('i');
+            switch (repeatMode) {
+                case 'none':
+                    icon.className = 'fas fa-redo';
+                    repeatModeBtn.title = 'Повтор';
+                    break;
+                case 'one':
+                    icon.className = 'fas fa-redo-alt';
+                    repeatModeBtn.title = 'Повтор трека';
+                    break;
+                case 'all':
+                    icon.className = 'fas fa-redo';
+                    repeatModeBtn.title = 'Повтор всех';
+                    break;
             }
-            
-            // Подключаем текущий audioElement к цепочке Web Audio
-            // Это должно происходить после установки src и до/во время воспроизведения
-            connectAudioElement(); 
-            
-            // Запускаем визуализацию и возобновляем контекст при необходимости
-            if (audioContext.state === 'suspended') {
-                audioContext.resume().then(() => {
-                    isEqActive = true;
-                    animateEq();
-                });
+        }
+        // Обновление информации о треке в плеере
+        function updatePlayerInfo() {
+            if (currentIndex >= 0 && currentIndex < currentPlaylist.length) {
+                const track = currentPlaylist[currentIndex];
+                playerTrackName.textContent = track.name;
+                playerTrackAlbum.textContent = currentAlbum ? currentAlbum.name : 'Неизвестный альбом';
+                playerTrackImage.src = track.icon || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-10h2v6h-2zm0-2h2v1h-2z"/%3E%3C/svg%3E';
+                // Обновление Media Session API
+                if ('mediaSession' in navigator) {
+                    navigator.mediaSession.metadata = new MediaMetadata({
+                        title: track.name,
+                        album: currentAlbum?.name || 'Gospel Audio',
+                        artist: 'Gospel Audio Collection',
+                        artwork: [
+                            { src: track.icon || '/Audio-Albomy/icon.png', sizes: '192x192', type: 'image/png' },
+                            { src: track.icon || '/Audio-Albomy/icon.png', sizes: '512x512', type: 'image/png' }
+                        ]
+                    });
+                }
             } else {
-                isEqActive = true;
-                animateEq();
+                playerTrackName.textContent = 'Нет активного трека';
+                playerTrackAlbum.textContent = 'Выберите трек для воспроизведения';
             }
-            // === КОНЕЦ ИСПРАВЛЕНИЯ ===
-            
-        }).catch(error => {
-            // Обработка ошибок воспроизведения
-            console.error('Ошибка воспроизведения:', error);
-            hideLoading();
-            // Показываем уведомление об ошибке
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: var(--error);
-                color: white;
-                padding: 1rem;
-                border-radius: 8px;
-                z-index: 10000;
-                animation: slideIn 0.3s ease;
-            `;
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <span>Не удалось воспроизвести "${track.name}"</span>
-                </div>
-            `;
-            document.body.appendChild(notification);
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        });
-    }
-}
-    // Следующий трек
-    function playNext() {
-        if (repeatMode === 'one') {
-            audioElement.currentTime = 0;
-            audioElement.play();
-            return;
         }
-        if (currentIndex < currentPlaylist.length - 1) {
-            playTrack(currentIndex + 1);
-        } else if (repeatMode === 'all') {
-            playTrack(0);
-        } else {
-            audioElement.pause();
-            playBtn.innerHTML = '<i class="fas fa-play"></i>';
-            equalizer.style.display = 'none';
-            updateTrackStates();
+        // Обновление кнопок навигации
+        function updateNavButtons() {
+            if (repeatMode === 'all' || isShuffled) {
+                prevBtn.disabled = false;
+                nextBtn.disabled = false;
+            } else {
+                prevBtn.disabled = currentIndex <= 0;
+                nextBtn.disabled = currentIndex >= currentPlaylist.length - 1;
+            }
         }
-    }
-    // Предыдущий трек
-    function playPrev() {
-        if (currentIndex > 0) {
-            playTrack(currentIndex - 1);
-        } else if (repeatMode === 'all') {
-            playTrack(currentPlaylist.length - 1);
+        // Обновление визуального состояния треков
+        function updateTrackStates() {
+            trackElements.forEach((el, index) => {
+                el.classList.remove('active', 'playing');
+                if (index === currentIndex) {
+                    el.classList.add('active');
+                    if (!audioElement.paused) {
+                        el.classList.add('playing');
+                    }
+                }
+            });
         }
-    }
-    // Обработчики событий плеера
-    playBtn.addEventListener('click', () => {
-        if (audioElement.paused) {
-            if (!audioElement.src && currentPlaylist.length > 0) {
-                playTrack(0);
+        // Фильтрация контента по категории и поиску
+        function filterContent(searchTerm = '') {
+            const albumsDiv = document.getElementById('albums');
+            albumsDiv.innerHTML = '';
+            const lowerTerm = searchTerm.toLowerCase();
+            // Фильтрация альбомов по категории
+            let filteredAlbums = allAlbums;
+            if (currentCategory !== 'all') {
+                filteredAlbums = allAlbums.filter(album => 
+                    album.category === currentCategory
+                );
+            }
+            // Фильтрация по поисковому запросу
+            if (lowerTerm) {
+                filteredAlbums = filteredAlbums.filter(album => 
+                    album.name.toLowerCase().includes(lowerTerm) ||
+                    album.tracks.some(track => track.name.toLowerCase().includes(lowerTerm))
+                );
+            }
+            if (filteredAlbums.length === 0) {
+                albumsDiv.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>Ничего не найдено по запросу "${searchTerm}"</p>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Попробуйте изменить поисковый запрос</p>
+                    </div>
+                `;
                 return;
             }
-            audioElement.play();
-            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-            equalizer.style.display = 'flex';
-            isEqActive = true;
-            animateEq();
-        } else {
-            audioElement.pause();
-            playBtn.innerHTML = '<i class="fas fa-play"></i>';
-            equalizer.style.display = 'none';
-            isEqActive = false;
-        }
-        updateTrackStates();
-    });
-    nextBtn.addEventListener('click', playNext);
-    prevBtn.addEventListener('click', playPrev);
-    shuffleModeBtn.addEventListener('click', toggleShuffle);
-    repeatModeBtn.addEventListener('click', toggleRepeat);
-    // Новый обработчик для кнопки "Назад к альбомам"
-    backToAlbumsTopBtn.addEventListener('click', showAlbums);
-    // События аудио элемента
-    audioElement.addEventListener('timeupdate', () => {
-        if (audioElement.duration) {
-            const percent = (audioElement.currentTime / audioElement.duration) * 100;
-            progressBar.style.width = `${percent}%`;
-            progressTopBar.style.width = `${percent}%`;
-            currentTimeEl.textContent = formatDuration(audioElement.currentTime);
-        }
-    });
-    audioElement.addEventListener('loadedmetadata', () => {
-        totalTimeEl.textContent = formatDuration(audioElement.duration);
-    });
-    audioElement.addEventListener('ended', () => {
-        playBtn.innerHTML = '<i class="fas fa-play"></i>';
-        equalizer.style.display = 'none';
-        isEqActive = false;
-        playNext();
-    });
-    audioElement.addEventListener('play', () => {
-        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-        equalizer.style.display = 'flex';
-        isEqActive = true;
-        animateEq();
-        updateTrackStates();
-    });
-    audioElement.addEventListener('pause', () => {
-        playBtn.innerHTML = '<i class="fas fa-play"></i>';
-        equalizer.style.display = 'none';
-        isEqActive = false;
-        updateTrackStates();
-    });
-    // Прогресс бар
-    progressContainer.addEventListener('click', (e) => {
-        if (audioElement.duration) {
-            const width = progressContainer.clientWidth;
-            const clickX = e.offsetX;
-            const duration = audioElement.duration;
-            audioElement.currentTime = (clickX / width) * duration;
-        }
-    });
-    progressTopContainer.addEventListener('click', (e) => {
-        if (audioElement.duration) {
-            const width = progressTopContainer.clientWidth;
-            const clickX = e.offsetX;
-            const duration = audioElement.duration;
-            audioElement.currentTime = (clickX / width) * duration;
-        }
-    });
-    // Громкость
-    volumeSlider.addEventListener('click', (e) => {
-        const width = volumeSlider.clientWidth;
-        const clickX = e.offsetX;
-        const volume = Math.max(0, Math.min(1, clickX / width));
-        audioElement.volume = volume;
-        volumeLevel.style.width = `${volume * 100}%`;
-        updateVolumeIcon(volume);
-    });
-    // Кнопка громкости
-    volumeBtn.addEventListener('click', () => {
-        if (audioElement.volume > 0) {
-            audioElement.dataset.previousVolume = audioElement.volume;
-            audioElement.volume = 0;
-            volumeLevel.style.width = '0%';
-        } else {
-            const previousVolume = parseFloat(audioElement.dataset.previousVolume) || 0.7;
-            audioElement.volume = previousVolume;
-            volumeLevel.style.width = `${previousVolume * 100}%`;
-        }
-        updateVolumeIcon(audioElement.volume);
-    });
-    // Обновление иконки громкости
-    function updateVolumeIcon(volume) {
-        const icon = volumeBtn.querySelector('i');
-        if (volume === 0) {
-            icon.className = 'fas fa-volume-mute';
-        } else if (volume < 0.5) {
-            icon.className = 'fas fa-volume-down';
-        } else {
-            icon.className = 'fas fa-volume-up';
-        }
-    }
-    // Media Session API
-    if ('mediaSession' in navigator) {
-        navigator.mediaSession.setActionHandler('play', () => {
-            audioElement.play();
-        });
-        navigator.mediaSession.setActionHandler('pause', () => {
-            audioElement.pause();
-        });
-        navigator.mediaSession.setActionHandler('nexttrack', playNext);
-        navigator.mediaSession.setActionHandler('previoustrack', playPrev);
-        navigator.mediaSession.setActionHandler('seekto', (details) => {
-            if (audioElement.duration) {
-                audioElement.currentTime = details.seekTime;
-            }
-        });
-    }
-    // Поиск
-    document.getElementById('search-input').addEventListener('input', (e) => {
-        filterContent(e.target.value);
-    });
-    // Сортировка
-    document.getElementById('sort-select').addEventListener('change', () => {
-        if (currentAlbum) {
-            loadTracks(currentAlbum, document.getElementById('search-input').value);
-        }
-    });
-    // Переключение категорий
-    document.getElementById('categories-bar').addEventListener('click', (e) => {
-        if (e.target.classList.contains('category-btn')) {
-            // Убираем активный класс у всех кнопок
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
+            filteredAlbums.forEach((album, index) => {
+                const albumDiv = document.createElement('div');
+                albumDiv.className = 'album-card fade-in';
+                albumDiv.style.animationDelay = `${index * 0.1}s`;
+                // Обложка альбома
+                if (album.icon) {
+                    const img = document.createElement('img');
+                    img.src = album.icon.startsWith('http') ? album.icon : rawBase + album.icon;
+                    img.className = 'album-image';
+                    img.onerror = () => img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-10h2v6h-2zm0-2h2v1h-2z"/%3E%3C/svg%3E';
+                    albumDiv.appendChild(img);
+                } else {
+                    const iconDiv = document.createElement('div');
+                    iconDiv.innerHTML = '<i class="fas fa-music" style="font-size: 70px; color: var(--accent); margin-bottom: 1rem;"></i>';
+                    iconDiv.style.textAlign = 'center';
+                    albumDiv.appendChild(iconDiv);
+                }
+                // Название альбома
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'album-title';
+                titleDiv.textContent = album.name;
+                albumDiv.appendChild(titleDiv);
+                // Информация о количестве треков
+                const subtitleDiv = document.createElement('div');
+                subtitleDiv.className = 'album-subtitle';
+                subtitleDiv.textContent = `${album.tracks.length} ${getTrackWord(album.tracks.length)}`;
+                albumDiv.appendChild(subtitleDiv);
+                // Метаинформация
+                const albumDuration = album.tracks.reduce((sum, track) => sum + (track.duration || 0), 0);
+                const metaDiv = document.createElement('div');
+                metaDiv.className = 'album-meta';
+                metaDiv.innerHTML = `
+                    <div class="album-meta-item">
+                        <i class="fas fa-clock"></i>
+                        ${formatDuration(albumDuration)}
+                    </div>
+                    <div class="album-meta-item">
+                        <i class="fas fa-calendar"></i>
+                        ${new Date().getFullYear()}
+                    </div>
+                `;
+                albumDiv.appendChild(metaDiv);
+                albumDiv.onclick = () => loadTracks(album);
+                albumsDiv.appendChild(albumDiv);
             });
-            // Добавляем активный класс к нажатой кнопке
-            e.target.classList.add('active');
-            // Устанавливаем текущую категорию
-            currentCategory = e.target.dataset.category;
-            // Фильтруем контент
-            filterContent(document.getElementById('search-input').value);
-        }
-    });
-    // Открытие модального окна настроек
-    menuBtn.addEventListener('click', () => {
-        settingsModal.style.display = 'flex';
-    });
-    // Закрытие модального окна настроек
-    closeModal.addEventListener('click', () => {
-        settingsModal.style.display = 'none';
-    });
-    // Переключение тем
-    themeOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            // Убираем активный класс у всех опций
-            themeOptions.forEach(opt => opt.classList.remove('active'));
-            // Добавляем активный класс к выбранной опции
-            option.classList.add('active');
-            // Применяем тему
-            const theme = option.dataset.theme;
-            document.body.className = ''; // Сбрасываем классы
-            switch(theme) {
-                case 'blue':
-                    document.body.style.cssText = '--primary: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); --primary-dark: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); --accent: #3b82f6; --accent-light: #60a5fa; --accent-dark: #1d4ed8;';
-                    break;
-                case 'green':
-                    document.body.style.cssText = '--primary: linear-gradient(135deg, #10b981 0%, #047857 100%); --primary-dark: linear-gradient(135deg, #059669 0%, #065f46 100%); --accent: #10b981; --accent-light: #34d399; --accent-dark: #047857;';
-                    break;
-                case 'purple':
-                    document.body.style.cssText = '--primary: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); --primary-dark: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); --accent: #8b5cf6; --accent-light: #a78bfa; --accent-dark: #7c3aed;';
-                    break;
-                default:
-                    // Тема по умолчанию
-                    document.body.style.cssText = '';
+            if (currentAlbum) {
+                loadTracks(currentAlbum, lowerTerm);
             }
-        });
-    });
-    // Открытие модального окна эквалайзера
-    eqToggle.addEventListener('click', () => {
-        eqModal.style.display = 'flex';
-        settingsModal.style.display = 'none';
-    });
-    eqPlayerBtn.addEventListener('click', () => {
-        eqModal.style.display = 'flex';
-    });
-    // Закрытие модального окна эквалайзера
-    closeEqModal.addEventListener('click', () => {
-        eqModal.style.display = 'none';
-    });
-    // Закрытие модального окна эквалайзера при клике вне его
-    window.addEventListener('click', (e) => {
-        if (e.target === eqModal) {
-            eqModal.style.display = 'none';
         }
-        if (e.target === settingsModal) {
-            settingsModal.style.display = 'none';
+        // Склонение слова "трек"
+        function getTrackWord(count) {
+            if (count % 10 === 1 && count % 100 !== 11) return 'трек';
+            if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) return 'трека';
+            return 'треков';
         }
-    });
-    // Переключение пресетов эквалайзера
-    eqPresetBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            applyEqPreset(btn.dataset.preset);
-        });
-    });
-    // Клавиатурные сокращения
-    document.addEventListener('keydown', (e) => {
-        // Пробел - воспроизведение/пауза
-        if (e.code === 'Space' && !e.target.matches('input, textarea')) {
-            e.preventDefault();
-            playBtn.click();
-        }
-        // Стрелка влево - предыдущий трек
-        if (e.code === 'ArrowLeft' && e.ctrlKey) {
-            e.preventDefault();
-            playPrev();
-        }
-        // Стрелка вправо - следующий трек
-        if (e.code === 'ArrowRight' && e.ctrlKey) {
-            e.preventDefault();
-            playNext();
-        }
-        // Стрелка вверх - увеличить громкость
-        if (e.code === 'ArrowUp' && e.ctrlKey) {
-            e.preventDefault();
-            const newVolume = Math.min(1, audioElement.volume + 0.1);
-            audioElement.volume = newVolume;
-            volumeLevel.style.width = `${newVolume * 100}%`;
-            updateVolumeIcon(newVolume);
-        }
-        // Стрелка вниз - уменьшить громкость
-        if (e.code === 'ArrowDown' && e.ctrlKey) {
-            e.preventDefault();
-            const newVolume = Math.max(0, audioElement.volume - 0.1);
-            audioElement.volume = newVolume;
-            volumeLevel.style.width = `${newVolume * 100}%`;
-            updateVolumeIcon(newVolume);
-        }
-        // S - перемешать
-        if (e.code === 'KeyS' && e.ctrlKey) {
-            e.preventDefault();
-            toggleShuffle();
-        }
-        // R - повтор
-        if (e.code === 'KeyR' && e.ctrlKey) {
-            e.preventDefault();
-            toggleRepeat();
-        }
-        // E - открыть эквалайзер
-        if (e.code === 'KeyE' && e.ctrlKey) {
-            e.preventDefault();
-            eqModal.style.display = 'flex';
-        }
-    });
-    // Service Worker для кэширования
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/Audio-Albomy/sw.js')
-            .then(reg => {
-                console.log('Service Worker зарегистрирован');
-                navigator.serviceWorker.addEventListener('message', event => {
-                    const statusDiv = document.getElementById('offline-status');
-                    statusDiv.textContent = event.data.message;
-                    statusDiv.style.display = event.data.message ? 'block' : 'none';
+        // Загрузка альбомов
+        async function loadAlbums() {
+            const albumsDiv = document.getElementById('albums');
+            albumsDiv.innerHTML = '<div class="loading">Загрузка альбомов...</div>';
+            showLoading();
+            try {
+                const response = await fetch(`${rawBase}albums.json`);
+                if (!response.ok) throw new Error(`Не удалось загрузить albums.json: ${response.status}`);
+                allAlbums = await response.json();
+                // Подсчет общей статистики
+                totalTracks = 0;
+                totalDuration = 0;
+                allAlbums.forEach(album => {
+                    totalTracks += album.tracks.length;
+                    album.tracks.forEach(track => {
+                        totalDuration += track.duration || 0;
+                    });
                 });
-            })
-            .catch(error => console.error('Ошибка регистрации Service Worker:', error));
-    }
-    // Обработка видимости страницы
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            // Страница скрыта
-            if (!audioElement.paused) {
-                document.title = `▶ ${playerTrackName.textContent} - Gospel Audio`;
+                filterContent('');
+                hideLoading();
+            } catch (error) {
+                console.error('Ошибка загрузки альбомов:', error);
+                albumsDiv.innerHTML = `
+                    <div class="error">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <p>Ошибка загрузки альбомов</p>
+                        <small>Проверьте файл albums.json в репозитории</small>
+                        <button onclick="loadAlbums()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer;">Повторить попытку</button>
+                    </div>
+                `;
+                hideLoading();
             }
-        } else {
-            // Страница видима
-            document.title = 'Gospel Audio Player';
         }
-    });
-    // Обработка ориентации экрана
-    window.addEventListener('orientationchange', () => {
-        setTimeout(() => {
+        // Загрузка треков альбома
+        function loadTracks(album, searchTerm = '') {
+            currentAlbum = album;
+            const tracksDiv = document.getElementById('tracks');
+            const currentAlbumDiv = document.getElementById('current-album');
+            const tracksControlsDiv = document.getElementById('tracks-controls');
+            const albumsGrid = document.getElementById('albums');
+            tracksDiv.innerHTML = '';
+            const albumDuration = album.tracks.reduce((sum, track) => sum + (track.duration || 0), 0);
+            currentAlbumDiv.innerHTML = `
+                <h2>${album.name}</h2>
+                <p class="album-subtitle">${album.tracks.length} ${getTrackWord(album.tracks.length)} • ${formatDuration(albumDuration)}</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Высококачественное аудио</p>
+            `;
+            currentAlbumDiv.style.display = 'block';
+            tracksControlsDiv.style.display = 'flex';
+            // Скрываем обложки альбомов
+            albumsGrid.style.display = 'none';
+            currentPlaylist = [];
+            originalPlaylist = [];
+            trackElements = [];
+            let tracks = album.tracks.filter(track => 
+                !searchTerm || track.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            const sortSelect = document.getElementById('sort-select');
+            const sortValue = sortSelect.value;
+            tracks.sort((a, b) => {
+                if (sortValue === 'name-asc') return a.name.localeCompare(b.name, 'ru');
+                if (sortValue === 'name-desc') return b.name.localeCompare(a.name, 'ru');
+                if (sortValue === 'duration-asc') return (a.duration || 0) - (b.duration || 0);
+                if (sortValue === 'duration-desc') return (b.duration || 0) - (a.duration || 0);
+                return 0;
+            });
+            if (tracks.length === 0) {
+                tracksDiv.innerHTML = '<div class="no-results">Ничего не найдено в этом альбоме</div>';
+                tracksDiv.style.display = 'block';
+                return;
+            }
+            tracks.forEach((track, trackIndex) => {
+                if (!track.url) {
+                    console.warn(`Пропущен трек ${track.name}: пустой URL`);
+                    return;
+                }
+                const trackUrl = track.url.startsWith('http') ? track.url : rawBase + track.url;
+                const iconUrl = track.icon ? 
+                    (track.icon.startsWith('http') ? track.icon : rawBase + track.icon) : 
+                    (album.icon ? 
+                        (album.icon.startsWith('http') ? album.icon : rawBase + album.icon) : 
+                        'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-10h2v6h-2zm0-2h2v1h-2z"/%3E%3C/svg%3E'
+                    );
+                currentPlaylist.push({
+                    name: track.name,
+                    url: trackUrl,
+                    icon: iconUrl,
+                    duration: track.duration,
+                    artist: track.artist || album.name
+                });
+                const index = currentPlaylist.length - 1;
+                const trackDiv = document.createElement('div');
+                trackDiv.className = 'track slide-up';
+                trackDiv.style.animationDelay = `${trackIndex * 0.05}s`;
+                trackDiv.dataset.index = index;
+                // Номер трека
+                const trackNumber = document.createElement('div');
+                trackNumber.className = 'track-number';
+                trackNumber.textContent = trackIndex + 1;
+                trackDiv.appendChild(trackNumber);
+                // Обложка трека
+                const iconImg = document.createElement('img');
+                iconImg.src = iconUrl;
+                iconImg.className = 'track-image';
+                iconImg.onerror = () => iconImg.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1-10h2v6h-2zm0-2h2v1h-2z"/%3E%3C/svg%3E';
+                trackDiv.appendChild(iconImg);
+                // Информация о треке
+                const trackInfoDiv = document.createElement('div');
+                trackInfoDiv.className = 'track-info';
+                const playBtn = document.createElement('button');
+                playBtn.className = 'track-name';
+                playBtn.textContent = track.name;
+                trackInfoDiv.appendChild(playBtn);
+                const artistDiv = document.createElement('div');
+                artistDiv.className = 'track-artist';
+                artistDiv.textContent = track.artist || album.name;
+                trackInfoDiv.appendChild(artistDiv);
+                trackDiv.appendChild(trackInfoDiv);
+                // Длительность
+                const durationSpan = document.createElement('span');
+                durationSpan.className = 'track-duration';
+                durationSpan.textContent = formatDuration(track.duration);
+                trackDiv.appendChild(durationSpan);
+                // Действия с треком
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'track-actions';
+                const dlLink = document.createElement('a');
+                dlLink.href = trackUrl;
+                dlLink.download = track.name;
+                dlLink.className = 'download-link desktop-only';
+                dlLink.innerHTML = '<i class="fas fa-download"></i>';
+                dlLink.title = 'Скачать трек';
+                actionsDiv.appendChild(dlLink);
+                const dlLinkMobile = document.createElement('a');
+                dlLinkMobile.href = trackUrl;
+                dlLinkMobile.download = track.name;
+                dlLinkMobile.className = 'download-link mobile-only';
+                dlLinkMobile.innerHTML = '<i class="fas fa-download"></i>';
+                dlLinkMobile.title = 'Скачать трек';
+                actionsDiv.appendChild(dlLinkMobile);
+                trackDiv.appendChild(actionsDiv);
+                playBtn.onclick = () => playTrack(index);
+                trackDiv.onclick = (e) => {
+                    // Игнорируем клик, если он был по кнопке или ссылке
+                    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+                    playTrack(index);
+                };
+                tracksDiv.appendChild(trackDiv);
+                trackElements.push(trackDiv);
+            });
+            originalPlaylist = [...currentPlaylist];
+            // Кнопка скачивания альбома
+            if (album.zip) {
+                const dlAlbum = document.createElement('a');
+                dlAlbum.href = album.zip.startsWith('http') ? album.zip : rawBase + album.zip;
+                dlAlbum.download = `${album.name}.zip`;
+                dlAlbum.innerHTML = '<i class="fas fa-download"></i> Скачать весь альбом';
+                dlAlbum.className = 'download-album';
+                dlAlbum.style.textAlign = 'center';
+                dlAlbum.style.display = 'block';
+                dlAlbum.style.marginTop = '2rem';
+                tracksDiv.appendChild(dlAlbum);
+            }
+            tracksDiv.style.display = 'block';
+            updateNavButtons();
+        }
+        // Возврат к альбомам
+        function showAlbums() {
+            const tracksDiv = document.getElementById('tracks');
+            const currentAlbumDiv = document.getElementById('current-album');
+            const tracksControlsDiv = document.getElementById('tracks-controls');
+            const albumsGrid = document.getElementById('albums');
+            // Скрываем треки и элементы управления треками
+            tracksDiv.style.display = 'none';
+            currentAlbumDiv.style.display = 'none';
+            tracksControlsDiv.style.display = 'none';
+            // Показываем обложки альбомов
+            albumsGrid.style.display = 'grid';
+            // Сбрасываем текущий альбом
+            currentAlbum = null;
+            // Сбрасываем поиск
+            document.getElementById('search-input').value = '';
+            filterContent('');
+        }
+        // Воспроизведение трека
+        function playTrack(index) {
+            if (index >= 0 && index < currentPlaylist.length) {
+                currentIndex = index;
+                const track = currentPlaylist[index];
+                // Показываем загрузку
+                showLoading();
+                audioElement.src = track.url;
+                audioElement.load();
+                audioElement.play().then(() => {
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    equalizer.style.display = 'flex';
+                    updatePlayerInfo();
+                    updateNavButtons();
+                    updateTrackStates();
+                    hideLoading();
+                }).catch(error => {
+                    console.error('Ошибка воспроизведения:', error);
+                    hideLoading();
+                    // Показываем уведомление об ошибке
+                    const notification = document.createElement('div');
+                    notification.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: var(--error);
+                        color: white;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        z-index: 10000;
+                        animation: slideIn 0.3s ease;
+                    `;
+                    notification.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Не удалось воспроизвести "${track.name}"</span>
+                        </div>
+                    `;
+                    document.body.appendChild(notification);
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 3000);
+                });
+            }
+        }
+        // Следующий трек
+        function playNext() {
+            if (repeatMode === 'one') {
+                audioElement.currentTime = 0;
+                audioElement.play();
+                return;
+            }
+            if (currentIndex < currentPlaylist.length - 1) {
+                playTrack(currentIndex + 1);
+            } else if (repeatMode === 'all') {
+                playTrack(0);
+            } else {
+                audioElement.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                equalizer.style.display = 'none';
+                updateTrackStates();
+            }
+        }
+        // Предыдущий трек
+        function playPrev() {
+            if (currentIndex > 0) {
+                playTrack(currentIndex - 1);
+            } else if (repeatMode === 'all') {
+                playTrack(currentPlaylist.length - 1);
+            }
+        }
+        // Обработчики событий плеера
+        playBtn.addEventListener('click', () => {
+            if (audioElement.paused) {
+                if (!audioElement.src && currentPlaylist.length > 0) {
+                    playTrack(0);
+                    return;
+                }
+                audioElement.play();
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                equalizer.style.display = 'flex';
+            } else {
+                audioElement.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                equalizer.style.display = 'none';
+            }
+            updateTrackStates();
+        });
+        nextBtn.addEventListener('click', playNext);
+        prevBtn.addEventListener('click', playPrev);
+        shuffleModeBtn.addEventListener('click', toggleShuffle);
+        repeatModeBtn.addEventListener('click', toggleRepeat);
+        // События аудио элемента
+        audioElement.addEventListener('timeupdate', () => {
             if (audioElement.duration) {
                 const percent = (audioElement.currentTime / audioElement.duration) * 100;
                 progressBar.style.width = `${percent}%`;
                 progressTopBar.style.width = `${percent}%`;
+                currentTimeEl.textContent = formatDuration(audioElement.currentTime);
             }
-        }, 300);
-    });
-    // Инициализация эквалайзера
-    window.addEventListener('DOMContentLoaded', () => {
-        initEqVisualizer();
-        initEqSliders();
-    });
-    // Инициализация
-    loadAlbums();
-    // Добавляем стили для анимации slideIn
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
+        });
+        audioElement.addEventListener('loadedmetadata', () => {
+            totalTimeEl.textContent = formatDuration(audioElement.duration);
+        });
+        audioElement.addEventListener('ended', () => {
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            equalizer.style.display = 'none';
+            playNext();
+        });
+        audioElement.addEventListener('play', () => {
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            equalizer.style.display = 'flex';
+            updateTrackStates();
+        });
+        audioElement.addEventListener('pause', () => {
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            equalizer.style.display = 'none';
+            updateTrackStates();
+        });
+        // Прогресс бар
+        progressContainer.addEventListener('click', (e) => {
+            if (audioElement.duration) {
+                const width = progressContainer.clientWidth;
+                const clickX = e.offsetX;
+                const duration = audioElement.duration;
+                audioElement.currentTime = (clickX / width) * duration;
             }
-            to {
-                transform: translateX(0);
-                opacity: 1;
+        });
+        progressTopContainer.addEventListener('click', (e) => {
+            if (audioElement.duration) {
+                const width = progressTopContainer.clientWidth;
+                const clickX = e.offsetX;
+                const duration = audioElement.duration;
+                audioElement.currentTime = (clickX / width) * duration;
+            }
+        });
+        // Громкость
+        volumeSlider.addEventListener('click', (e) => {
+            const width = volumeSlider.clientWidth;
+            const clickX = e.offsetX;
+            const volume = Math.max(0, Math.min(1, clickX / width));
+            audioElement.volume = volume;
+            volumeLevel.style.width = `${volume * 100}%`;
+            updateVolumeIcon(volume);
+        });
+        // Кнопка громкости
+        volumeBtn.addEventListener('click', () => {
+            if (audioElement.volume > 0) {
+                audioElement.dataset.previousVolume = audioElement.volume;
+                audioElement.volume = 0;
+                volumeLevel.style.width = '0%';
+            } else {
+                const previousVolume = parseFloat(audioElement.dataset.previousVolume) || 0.7;
+                audioElement.volume = previousVolume;
+                volumeLevel.style.width = `${previousVolume * 100}%`;
+            }
+            updateVolumeIcon(audioElement.volume);
+        });
+        // Обновление иконки громкости
+        function updateVolumeIcon(volume) {
+            const icon = volumeBtn.querySelector('i');
+            if (volume === 0) {
+                icon.className = 'fas fa-volume-mute';
+            } else if (volume < 0.5) {
+                icon.className = 'fas fa-volume-down';
+            } else {
+                icon.className = 'fas fa-volume-up';
             }
         }
-    `;
-    document.head.appendChild(style);
-</script>
+        // Media Session API
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.setActionHandler('play', () => {
+                audioElement.play();
+            });
+            navigator.mediaSession.setActionHandler('pause', () => {
+                audioElement.pause();
+            });
+            navigator.mediaSession.setActionHandler('nexttrack', playNext);
+            navigator.mediaSession.setActionHandler('previoustrack', playPrev);
+            navigator.mediaSession.setActionHandler('seekto', (details) => {
+                if (audioElement.duration) {
+                    audioElement.currentTime = details.seekTime;
+                }
+            });
+        }
+        // Поиск
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            filterContent(e.target.value);
+        });
+        // Сортировка
+        document.getElementById('sort-select').addEventListener('change', () => {
+            if (currentAlbum) {
+                loadTracks(currentAlbum, document.getElementById('search-input').value);
+            }
+        });
+        // Переключение категорий
+        document.getElementById('categories-bar').addEventListener('click', (e) => {
+            if (e.target.classList.contains('category-btn')) {
+                // Убираем активный класс у всех кнопок
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                // Добавляем активный класс к нажатой кнопке
+                e.target.classList.add('active');
+                // Устанавливаем текущую категорию
+                currentCategory = e.target.dataset.category;
+                // Фильтруем контент
+                filterContent(document.getElementById('search-input').value);
+            }
+        });
+        // Открытие модального окна настроек
+        menuBtn.addEventListener('click', () => {
+            settingsModal.style.display = 'flex';
+        });
+        // Закрытие модального окна
+        closeModal.addEventListener('click', () => {
+            settingsModal.style.display = 'none';
+        });
+        // Закрытие модального окна при клике вне его
+        window.addEventListener('click', (e) => {
+            if (e.target === settingsModal) {
+                settingsModal.style.display = 'none';
+            }
+        });
+        // Переключение тем
+        themeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Убираем активный класс у всех опций
+                themeOptions.forEach(opt => opt.classList.remove('active'));
+                // Добавляем активный класс к выбранной опции
+                option.classList.add('active');
+                // Применяем тему
+                const theme = option.dataset.theme;
+                document.body.className = ''; // Сбрасываем классы
+                switch(theme) {
+                    case 'blue':
+                        document.body.style.cssText = '--primary: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); --primary-dark: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); --accent: #3b82f6; --accent-light: #60a5fa; --accent-dark: #1d4ed8;';
+                        break;
+                    case 'green':
+                        document.body.style.cssText = '--primary: linear-gradient(135deg, #10b981 0%, #047857 100%); --primary-dark: linear-gradient(135deg, #059669 0%, #065f46 100%); --accent: #10b981; --accent-light: #34d399; --accent-dark: #047857;';
+                        break;
+                    case 'purple':
+                        document.body.style.cssText = '--primary: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); --primary-dark: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); --accent: #8b5cf6; --accent-light: #a78bfa; --accent-dark: #7c3aed;';
+                        break;
+                    default:
+                        // Тема по умолчанию
+                        document.body.style.cssText = '';
+                }
+            });
+        });
+        // Клавиатурные сокращения
+        document.addEventListener('keydown', (e) => {
+            // Пробел - воспроизведение/пауза
+            if (e.code === 'Space' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                playBtn.click();
+            }
+            // Стрелка влево - предыдущий трек
+            if (e.code === 'ArrowLeft' && e.ctrlKey) {
+                e.preventDefault();
+                playPrev();
+            }
+            // Стрелка вправо - следующий трек
+            if (e.code === 'ArrowRight' && e.ctrlKey) {
+                e.preventDefault();
+                playNext();
+            }
+            // Стрелка вверх - увеличить громкость
+            if (e.code === 'ArrowUp' && e.ctrlKey) {
+                e.preventDefault();
+                const newVolume = Math.min(1, audioElement.volume + 0.1);
+                audioElement.volume = newVolume;
+                volumeLevel.style.width = `${newVolume * 100}%`;
+                updateVolumeIcon(newVolume);
+            }
+            // Стрелка вниз - уменьшить громкость
+            if (e.code === 'ArrowDown' && e.ctrlKey) {
+                e.preventDefault();
+                const newVolume = Math.max(0, audioElement.volume - 0.1);
+                audioElement.volume = newVolume;
+                volumeLevel.style.width = `${newVolume * 100}%`;
+                updateVolumeIcon(newVolume);
+            }
+            // S - перемешать
+            if (e.code === 'KeyS' && e.ctrlKey) {
+                e.preventDefault();
+                toggleShuffle();
+            }
+            // R - повтор
+            if (e.code === 'KeyR' && e.ctrlKey) {
+                e.preventDefault();
+                toggleRepeat();
+            }
+        });
+        // Service Worker для кэширования
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/Audio-Albomy/sw.js')
+                .then(reg => {
+                    console.log('Service Worker зарегистрирован');
+                    navigator.serviceWorker.addEventListener('message', event => {
+                        const statusDiv = document.getElementById('offline-status');
+                        statusDiv.textContent = event.data.message;
+                        statusDiv.style.display = event.data.message ? 'block' : 'none';
+                    });
+                })
+                .catch(error => console.error('Ошибка регистрации Service Worker:', error));
+        }
+        // Обработка видимости страницы
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Страница скрыта
+                if (!audioElement.paused) {
+                    document.title = `▶ ${playerTrackName.textContent} - Gospel Audio`;
+                }
+            } else {
+                // Страница видима
+                document.title = 'Gospel Audio Player';
+            }
+        });
+        // Обработка ориентации экрана
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                if (audioElement.duration) {
+                    const percent = (audioElement.currentTime / audioElement.duration) * 100;
+                    progressBar.style.width = `${percent}%`;
+                    progressTopBar.style.width = `${percent}%`;
+                }
+            }, 300);
+        });
+        // Инициализация
+        loadAlbums();
+        // Добавляем стили для анимации slideIn
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
