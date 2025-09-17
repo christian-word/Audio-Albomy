@@ -250,7 +250,7 @@
         ],
         "zip": null
     },
-   {
+    {
         "name": "Brand X Music",
         "icon": "Music/Brand X Music/icon.jpg",
         "category": "epic",
@@ -285,7 +285,6 @@
                 "icon": null,
                 "duration": 162
             },
-            
             {
                 "name": "Brand X Music - Dawn Of Valor ",
                 "url": "Music/Brand X Music/Brand X Music - Dawn Of Valor .mp3",
@@ -547,6 +546,148 @@
                 "url": "Music/Synthesis/Synthesis_-_Waiting_for_Sunrise.mp3",
                 "icon": null,
                 "duration": 378
+            }
+        ],
+        "zip": null
+    },
+    {
+        "name": "Luca Francini",
+        "icon": "Music/Luca Francini/icon.jpg",
+        "category": "epic",
+        "tracks": [
+            {
+                "name": "Luca Francini - Dark Cinematic Trailer",
+                "url": "Music/Luca Francini/Luca Francini - Dark Cinematic Trailer.mp3",
+                "icon": null,
+                "duration": 139
+            },
+            {
+                "name": "Luca Francini - Epic War Trailer",
+                "url": "Music/Luca Francini/Luca Francini - Epic War Trailer.mp3",
+                "icon": null,
+                "duration": 125
+            },
+            {
+                "name": "Luca Francini - Fantasia (Epic Adventure Trailer)",
+                "url": "Music/Luca Francini/Luca Francini - Fantasia (Epic Adventure Trailer).mp3",
+                "icon": null,
+                "duration": 164
+            },
+            {
+                "name": "Luca Francini - Military Army Tension (Light Version)",
+                "url": "Music/Luca Francini/Luca Francini - Military Army Tension (Light Version).mp3",
+                "icon": null,
+                "duration": 85
+            },
+            {
+                "name": "Luca Francini - Rising Hope (Epic Cinematic Adventure)",
+                "url": "Music/Luca Francini/Luca Francini - Rising Hope (Epic Cinematic Adventure).mp3",
+                "icon": null,
+                "duration": 99
+            }
+        ],
+        "zip": null
+    },
+    {
+        "name": "Really Slow Motion",
+        "icon": "Music/Really Slow Motion/icon.jpg",
+        "category": "epic",
+        "tracks": [
+            {
+                "name": "Really Slow Motion  Epic Soul Factory - Awaking Hearts",
+                "url": "Music/Really Slow Motion/Really Slow Motion  Epic Soul Factory - Awaking Hearts.mp3",
+                "icon": null,
+                "duration": 160
+            },
+            {
+                "name": "Really Slow Motion  Epic Soul Factory - Everdream",
+                "url": "Music/Really Slow Motion/Really Slow Motion  Epic Soul Factory - Everdream.mp3",
+                "icon": null,
+                "duration": 513
+            },
+            {
+                "name": "Really Slow Motion  Epic Soul Factory - Sigma",
+                "url": "Music/Really Slow Motion/Really Slow Motion  Epic Soul Factory - Sigma.mp3",
+                "icon": null,
+                "duration": 199
+            },
+            {
+                "name": "Really Slow Motion  Giant Apes - Laniakea",
+                "url": "Music/Really Slow Motion/Really Slow Motion  Giant Apes - Laniakea.mp3",
+                "icon": null,
+                "duration": 195
+            },
+            {
+                "name": "Really Slow Motion & Epic Soul Factory - Awaking Hearts",
+                "url": "Music/Really Slow Motion/Really Slow Motion & Epic Soul Factory - Awaking Hearts.mp3",
+                "icon": null,
+                "duration": 160
+            },
+            {
+                "name": "Really Slow Motion - 10. Untouchable (Full mix)",
+                "url": "Music/Really Slow Motion/Really Slow Motion - 10. Untouchable (Full mix).mp3",
+                "icon": null,
+                "duration": 160
+            },
+            {
+                "name": "Really Slow Motion - Ars Musica Alt. version - No Percussion",
+                "url": "Music/Really Slow Motion/Really Slow Motion - Ars Musica Alt. version - No Percussion.mp3",
+                "icon": null,
+                "duration": 134
+            },
+            {
+                "name": "Really Slow Motion - Faraday (No Choir Version)",
+                "url": "Music/Really Slow Motion/Really Slow Motion - Faraday (No Choir Version).mp3",
+                "icon": null,
+                "duration": 140
+            },
+            {
+                "name": "Really Slow Motion - Fjord Keeper",
+                "url": "Music/Really Slow Motion/Really Slow Motion - Fjord Keeper.mp3",
+                "icon": null,
+                "duration": 189
+            },
+            {
+                "name": "Really Slow Motion - Sirenum Scopuli",
+                "url": "Music/Really Slow Motion/Really Slow Motion - Sirenum Scopuli.mp3",
+                "icon": null,
+                "duration": 187
+            },
+            {
+                "name": "Really Slow Motion - The Lost Island",
+                "url": "Music/Really Slow Motion/Really Slow Motion - The Lost Island.mp3",
+                "icon": null,
+                "duration": 155
+            },
+            {
+                "name": "Really Slow Motion - You Will Be This Legend (Extended Version) - YouTube",
+                "url": "Music/Really Slow Motion/Really Slow Motion - You Will Be This Legend (Extended Version) - YouTube.mp3",
+                "icon": null,
+                "duration": 376
+            },
+            {
+                "name": "Really Slow Motion Music - Burning Rome",
+                "url": "Music/Really Slow Motion/Really Slow Motion Music - Burning Rome.mp3",
+                "icon": null,
+                "duration": 136
+            },
+            {
+                "name": "Really Slow Motion Music - Purple Skies",
+                "url": "Music/Really Slow Motion/Really Slow Motion Music - Purple Skies.mp3",
+                "icon": null,
+                "duration": 156
+            },
+            {
+                "name": "Really Slow Motion Music - Suns And Stars",
+                "url": "Music/Really Slow Motion/Really Slow Motion Music - Suns And Stars.mp3",
+                "icon": null,
+                "duration": 170
+            },
+            {
+                "name": "Really Slow Motion – Limitation (Full Mix)",
+                "url": "Music/Really Slow Motion/Really Slow Motion – Limitation (Full Mix).mp3",
+                "icon": null,
+                "duration": 133
             }
         ],
         "zip": null
