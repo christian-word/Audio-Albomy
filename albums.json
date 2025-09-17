@@ -551,44 +551,6 @@
         "zip": null
     },
     {
-        "name": "Luca Francini",
-        "icon": "Music/Luca Francini/icon.jpg",
-        "category": "epic",
-        "tracks": [
-            {
-                "name": "Luca Francini - Dark Cinematic Trailer",
-                "url": "Music/Luca Francini/Luca Francini - Dark Cinematic Trailer.mp3",
-                "icon": null,
-                "duration": 139
-            },
-            {
-                "name": "Luca Francini - Epic War Trailer",
-                "url": "Music/Luca Francini/Luca Francini - Epic War Trailer.mp3",
-                "icon": null,
-                "duration": 125
-            },
-            {
-                "name": "Luca Francini - Fantasia (Epic Adventure Trailer)",
-                "url": "Music/Luca Francini/Luca Francini - Fantasia (Epic Adventure Trailer).mp3",
-                "icon": null,
-                "duration": 164
-            },
-            {
-                "name": "Luca Francini - Military Army Tension (Light Version)",
-                "url": "Music/Luca Francini/Luca Francini - Military Army Tension (Light Version).mp3",
-                "icon": null,
-                "duration": 85
-            },
-            {
-                "name": "Luca Francini - Rising Hope (Epic Cinematic Adventure)",
-                "url": "Music/Luca Francini/Luca Francini - Rising Hope (Epic Cinematic Adventure).mp3",
-                "icon": null,
-                "duration": 99
-            }
-        ],
-        "zip": null
-    },
-    {
         "name": "Really Slow Motion",
         "icon": "Music/Really Slow Motion/icon.jpg",
         "category": "epic",
