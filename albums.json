@@ -555,6 +555,12 @@
         "icon": "Music/Really Slow Motion/icon.jpg",
         "category": "epic",
         "tracks": [
+              {
+                "name": "Really Slow Motion  Giant Apes - Laniakea",
+                "url": "Music/Really Slow Motion/Really Slow Motion  Giant Apes - Laniakea.mp3",
+                "icon": null,
+                "duration": 195
+            },
             {
                 "name": "Really Slow Motion  Epic Soul Factory - Awaking Hearts",
                 "url": "Music/Really Slow Motion/Really Slow Motion  Epic Soul Factory - Awaking Hearts.mp3",
@@ -572,18 +578,6 @@
                 "url": "Music/Really Slow Motion/Really Slow Motion  Epic Soul Factory - Sigma.mp3",
                 "icon": null,
                 "duration": 199
-            },
-            {
-                "name": "Really Slow Motion  Giant Apes - Laniakea",
-                "url": "Music/Really Slow Motion/Really Slow Motion  Giant Apes - Laniakea.mp3",
-                "icon": null,
-                "duration": 195
-            },
-            {
-                "name": "Really Slow Motion & Epic Soul Factory - Awaking Hearts",
-                "url": "Music/Really Slow Motion/Really Slow Motion & Epic Soul Factory - Awaking Hearts.mp3",
-                "icon": null,
-                "duration": 160
             },
             {
                 "name": "Really Slow Motion - 10. Untouchable (Full mix)",
